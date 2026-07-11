@@ -7,7 +7,7 @@ AI agents, commands, and skills for software development.
 ## System Architecture: 9-Layer Coordinated Multi-Agent Orchestrator
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'arial'}}}%%
+%%{init: {'theme':'dark', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'arial', 'darkMode':true, 'background':'transparent', 'primaryColor':'#1f2937', 'primaryTextColor':'#fff', 'primaryBorderColor':'#60a5fa', 'lineColor':'#60a5fa', 'secondaryColor':'#374151', 'tertiaryColor':'#4b5563'}}}%%
 graph TB
     subgraph L1["<b>🎯 LAYER 1: INPUT</b>"]
         U["<b>User Request</b><br/><font size=5>Implement Feature X</font>"]
@@ -142,15 +142,15 @@ graph TB
     RULES --> VAL1
     VAL3 --> REPORT
 
-    classDef input fill:#6f42c1,stroke:#5a32a3,stroke-width:4px,color:#fff
-    classDef config fill:#fd7e14,stroke:#e8590c,stroke-width:3px,color:#fff
-    classDef orchestrate fill:#dc3545,stroke:#bd2130,stroke-width:4px,color:#fff
-    classDef execute fill:#007bff,stroke:#0056b3,stroke-width:3px,color:#fff
-    classDef evidence fill:#17a2b8,stroke:#117a8b,stroke-width:3px,color:#fff
-    classDef synthesis fill:#28a745,stroke:#1e7e34,stroke-width:4px,color:#fff
-    classDef quality fill:#ffc107,stroke:#d39e00,stroke-width:3px,color:#000
-    classDef validation fill:#6f42c1,stroke:#5a32a3,stroke-width:3px,color:#fff
-    classDef output fill:#fd7e14,stroke:#e8590c,stroke-width:4px,color:#fff
+    classDef input fill:#7c3aed,stroke:#a78bfa,stroke-width:4px,color:#fff,font-size:16px
+    classDef config fill:#f59e0b,stroke:#fbbf24,stroke-width:3px,color:#fff,font-size:16px
+    classDef orchestrate fill:#ef4444,stroke:#f87171,stroke-width:4px,color:#fff,font-size:16px
+    classDef execute fill:#3b82f6,stroke:#60a5fa,stroke-width:3px,color:#fff,font-size:16px
+    classDef evidence fill:#06b6d4,stroke:#22d3ee,stroke-width:3px,color:#fff,font-size:16px
+    classDef synthesis fill:#10b981,stroke:#34d399,stroke-width:4px,color:#fff,font-size:16px
+    classDef quality fill:#eab308,stroke:#facc15,stroke-width:3px,color:#000,font-size:16px
+    classDef validation fill:#8b5cf6,stroke:#a78bfa,stroke-width:3px,color:#fff,font-size:16px
+    classDef output fill:#f97316,stroke:#fb923c,stroke-width:4px,color:#fff,font-size:16px
 
     class U,CMD input
     class CFG,ENV,MCP config
