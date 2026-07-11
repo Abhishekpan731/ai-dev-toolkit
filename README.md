@@ -7,61 +7,51 @@ AI agents, commands, and skills for software development.
 ## System Architecture: 9-Layer Coordinated Multi-Agent Orchestrator
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'arial'}}}%%
 graph TB
-    subgraph Layer1["🎯 LAYER 1: INPUT"]
-        U[User Request:<br/>Implement Feature X]
-        CMD[Commands:<br/>Operational Workflows]
+    subgraph L1["<b>🎯 LAYER 1: INPUT</b>"]
+        U["<b>User Request</b><br/><font size=5>Implement Feature X</font>"]
+        CMD["<b>Commands</b><br/><font size=5>Operational Workflows</font>"]
     end
 
-    subgraph Layer2["⚙️ LAYER 2: CONFIGURATION"]
-        CFG[System Config<br/>configs/]
-        ENV[Environment Vars<br/>env.mcp.template]
-        MCP[MCP Settings<br/>Agent Configs]
+    subgraph L2["<b>⚙️ LAYER 2: CONFIGURATION</b>"]
+        CFG["<b>System Config</b><br/><font size=5>configs/</font>"]
+        ENV["<b>Environment Vars</b><br/><font size=5>env.mcp.template</font>"]
+        MCP["<b>MCP Settings</b><br/><font size=5>Agent Configs</font>"]
     end
 
-    subgraph Layer3["🎭 LAYER 3: ORCHESTRATION"]
-        ORCH[Orchestrator Agent<br/>CEO Model]
-        DECOMP[Task Decomposition]
-        ASSIGN[Task Assignment<br/>One Owner per Task]
-        DAG[DAG Construction<br/>Dependencies + Waves]
+    subgraph L3["<b>🎭 LAYER 3: ORCHESTRATION</b>"]
+        ORCH["<b>Orchestrator Agent</b><br/><font size=5>CEO Model</font>"]
+        DECOMP["<b>Task Decomposition</b>"]
+        ASSIGN["<b>Task Assignment</b><br/><font size=5>One Owner per Task</font>"]
+        DAG["<b>DAG Construction</b><br/><font size=5>Dependencies + Waves</font>"]
 
         ORCH --> DECOMP
         DECOMP --> ASSIGN
         ASSIGN --> DAG
     end
 
-    subgraph Layer4["🤖 LAYER 4: EXECUTION (Coordinated)"]
-        subgraph Wave1["Wave 1: Research & Design"]
-            T1[Task 1: Research<br/>👤 AI_RESEARCH]
-            T2[Task 2: API Design<br/>👤 ARCHITECT]
+    subgraph L4["<b>🤖 LAYER 4: EXECUTION (Coordinated)</b>"]
+        T1["<b>Research</b><br/><font size=5>👤 AI_RESEARCH</font>"]
+        T2["<b>API Design</b><br/><font size=5>👤 ARCHITECT</font>"]
+        T3["<b>Backend</b><br/><font size=5>👤 BACKEND_DEV</font>"]
+        T4["<b>Frontend</b><br/><font size=5>👤 FRONTEND_DEV</font>"]
+        T5["<b>Database</b><br/><font size=5>👤 DB_SPECIALIST</font>"]
+        T6["<b>Unit Tests</b><br/><font size=5>👤 TEST_AUTO</font>"]
+        T7["<b>Integration</b><br/><font size=5>👤 QA_AUTO</font>"]
+        T8["<b>Security</b><br/><font size=5>👤 SECURITY</font>"]
 
-            T1 -.communicates.-> T2
-            T2 -.validates with.-> T1
-        end
+        T1 -.communicates.-> T2
+        T2 -.validates.-> T1
+        T3 -.shares.-> T4
+        T4 -.validates.-> T3
+        T3 -.requests.-> T5
+        T5 -.confirms.-> T3
+        T6 -.coverage.-> T7
+        T7 -.validates.-> T6
+        T8 -.reports.-> T6
 
-        subgraph Wave2["Wave 2: Implementation"]
-            T3[Task 3: Backend<br/>👤 BACKEND_DEV]
-            T4[Task 4: Frontend<br/>👤 FRONTEND_DEV]
-            T5[Task 5: Database<br/>👤 DB_SPECIALIST]
-
-            T3 -.shares context.-> T4
-            T4 -.validates API.-> T3
-            T3 -.requests schema.-> T5
-            T5 -.confirms model.-> T3
-        end
-
-        subgraph Wave3["Wave 3: Testing"]
-            T6[Task 6: Unit Tests<br/>👤 TEST_AUTO]
-            T7[Task 7: Integration<br/>👤 QA_AUTO]
-            T8[Task 8: Security<br/>👤 SECURITY]
-
-            T6 -.shares coverage.-> T7
-            T7 -.validates integration.-> T6
-            T8 -.reports vulns.-> T6
-        end
-
-        COMM[Inter-Agent Communication<br/>Share + Validate + Request]
-
+        COMM["<b>Inter-Agent Communication</b><br/><font size=5>Share + Validate + Request</font>"]
         T1 --> COMM
         T2 --> COMM
         T3 --> COMM
@@ -72,41 +62,38 @@ graph TB
         T8 --> COMM
     end
 
-    subgraph Layer5["📊 LAYER 5: EVIDENCE COLLECTION"]
-        EV1[Agent 1 Output<br/>Code + Proof]
-        EV2[Agent 2 Output<br/>Design Docs]
-        EV3[Agent 3 Output<br/>Implementation + Tests]
-        EV4[Agent 4 Output<br/>Test Reports + Coverage]
-        EV5[Agent 5 Output<br/>Security Report]
+    subgraph L5["<b>📊 LAYER 5: EVIDENCE COLLECTION</b>"]
+        EV1["<b>Agent 1</b><br/><font size=5>Code + Proof</font>"]
+        EV2["<b>Agent 2</b><br/><font size=5>Design Docs</font>"]
+        EV3["<b>Agent 3</b><br/><font size=5>Implementation</font>"]
+        EV4["<b>Agent 4</b><br/><font size=5>Test Reports</font>"]
+        EV5["<b>Agent 5</b><br/><font size=5>Security Report</font>"]
 
-        EV1 -.evidence.-> EV_POOL[Evidence Pool<br/>All Agent Outputs]
-        EV2 -.evidence.-> EV_POOL
-        EV3 -.evidence.-> EV_POOL
-        EV4 -.evidence.-> EV_POOL
-        EV5 -.evidence.-> EV_POOL
+        EV_POOL["<b>Evidence Pool</b><br/><font size=5>All Agent Outputs</font>"]
+
+        EV1 --> EV_POOL
+        EV2 --> EV_POOL
+        EV3 --> EV_POOL
+        EV4 --> EV_POOL
+        EV5 --> EV_POOL
     end
 
-    subgraph Layer6["🔍 LAYER 6: SYNTHESIS (7-Step Process)"]
-        SYN1[Step 1:<br/>Consolidate All Outputs]
-        SYN2[Step 2:<br/>Cross-Verify Evidence]
-        SYN3[Step 3:<br/>Detect Conflicts]
-        SYN4[Step 4:<br/>Resolve Conflicts]
-        SYN5[Step 5:<br/>Validate Root Causes]
-        SYN6[Step 6:<br/>Verify Dependencies]
-        SYN7[Step 7:<br/>Check Quality Gates]
+    subgraph L6["<b>🔍 LAYER 6: SYNTHESIS (7-Step)</b>"]
+        SYN1["<b>1. Consolidate</b><br/><font size=5>All Outputs</font>"]
+        SYN2["<b>2. Cross-Verify</b><br/><font size=5>Evidence</font>"]
+        SYN3["<b>3. Detect</b><br/><font size=5>Conflicts</font>"]
+        SYN4["<b>4. Resolve</b><br/><font size=5>Conflicts</font>"]
+        SYN5["<b>5. Validate</b><br/><font size=5>Root Causes</font>"]
+        SYN6["<b>6. Verify</b><br/><font size=5>Dependencies</font>"]
+        SYN7["<b>7. Check</b><br/><font size=5>Quality Gates</font>"]
 
-        SYN1 --> SYN2
-        SYN2 --> SYN3
-        SYN3 --> SYN4
-        SYN4 --> SYN5
-        SYN5 --> SYN6
-        SYN6 --> SYN7
+        SYN1 --> SYN2 --> SYN3 --> SYN4 --> SYN5 --> SYN6 --> SYN7
     end
 
-    subgraph Layer7["✅ LAYER 7: QUALITY ASSURANCE"]
-        RULES[Engineering Rules<br/>CORE-ENGINEERING-RULES.md]
-        REVIEW[Code Review<br/>👤 CODE_REVIEWER]
-        TEST[Testing Validation<br/>👤 TEST_AUTO]
+    subgraph L7["<b>✅ LAYER 7: QUALITY ASSURANCE</b>"]
+        RULES["<b>Engineering Rules</b><br/><font size=5>CORE-ENGINEERING</font>"]
+        REVIEW["<b>Code Review</b><br/><font size=5>👤 CODE_REVIEWER</font>"]
+        TEST["<b>Testing</b><br/><font size=5>👤 TEST_AUTO</font>"]
 
         RULES -.enforces.-> REVIEW
         RULES -.enforces.-> TEST
@@ -114,17 +101,16 @@ graph TB
         TEST -.confirms.-> REVIEW
     end
 
-    subgraph Layer8["🛡️ LAYER 8: FINAL VALIDATION"]
-        VAL1[Rules Compliance<br/>Check CORE + SPECIALIZED]
-        VAL2[Evidence-Based Review<br/>All Claims Verified]
-        VAL3[End-to-End Verification<br/>Complete Flow Check]
+    subgraph L8["<b>🛡️ LAYER 8: FINAL VALIDATION</b>"]
+        VAL1["<b>Rules Compliance</b><br/><font size=5>Check Standards</font>"]
+        VAL2["<b>Evidence Review</b><br/><font size=5>Verify Claims</font>"]
+        VAL3["<b>End-to-End</b><br/><font size=5>Complete Check</font>"]
 
-        VAL1 --> VAL2
-        VAL2 --> VAL3
+        VAL1 --> VAL2 --> VAL3
     end
 
-    subgraph Layer9["📤 LAYER 9: OUTPUT"]
-        REPORT[Comprehensive Report<br/>NOT Simple Aggregation<br/><br/>✅ Conflicts Resolved<br/>✅ Root Causes Validated<br/>✅ Evidence-Based<br/>✅ Cross-Verified<br/>✅ Dependencies Verified<br/>✅ Rules Compliant]
+    subgraph L9["<b>📤 LAYER 9: OUTPUT</b>"]
+        REPORT["<b>Comprehensive Report</b><br/><font size=5>NOT Simple Aggregation</font><br/><br/><font size=5>✅ Conflicts Resolved<br/>✅ Root Causes Validated<br/>✅ Evidence-Based<br/>✅ Cross-Verified<br/>✅ Rules Compliant</font>"]
     end
 
     U --> CMD
@@ -152,21 +138,19 @@ graph TB
     T8 --> EV5
 
     EV_POOL --> SYN1
-
     SYN7 --> RULES
     RULES --> VAL1
-
     VAL3 --> REPORT
 
-    classDef input fill:#6f42c1,stroke:#5a32a3,stroke-width:3px,color:#fff
-    classDef config fill:#fd7e14,stroke:#e8590c,stroke-width:2px,color:#fff
-    classDef orchestrate fill:#dc3545,stroke:#bd2130,stroke-width:3px,color:#fff
-    classDef execute fill:#007bff,stroke:#0056b3,stroke-width:2px,color:#fff
-    classDef evidence fill:#17a2b8,stroke:#117a8b,stroke-width:2px,color:#fff
-    classDef synthesis fill:#28a745,stroke:#1e7e34,stroke-width:3px,color:#fff
-    classDef quality fill:#ffc107,stroke:#d39e00,stroke-width:2px,color:#000
-    classDef validation fill:#6f42c1,stroke:#5a32a3,stroke-width:2px,color:#fff
-    classDef output fill:#fd7e14,stroke:#e8590c,stroke-width:3px,color:#fff
+    classDef input fill:#6f42c1,stroke:#5a32a3,stroke-width:4px,color:#fff
+    classDef config fill:#fd7e14,stroke:#e8590c,stroke-width:3px,color:#fff
+    classDef orchestrate fill:#dc3545,stroke:#bd2130,stroke-width:4px,color:#fff
+    classDef execute fill:#007bff,stroke:#0056b3,stroke-width:3px,color:#fff
+    classDef evidence fill:#17a2b8,stroke:#117a8b,stroke-width:3px,color:#fff
+    classDef synthesis fill:#28a745,stroke:#1e7e34,stroke-width:4px,color:#fff
+    classDef quality fill:#ffc107,stroke:#d39e00,stroke-width:3px,color:#000
+    classDef validation fill:#6f42c1,stroke:#5a32a3,stroke-width:3px,color:#fff
+    classDef output fill:#fd7e14,stroke:#e8590c,stroke-width:4px,color:#fff
 
     class U,CMD input
     class CFG,ENV,MCP config
@@ -225,13 +209,9 @@ ai-dev-toolkit/
 ## Agents (49 total)
 
 **Development (8):** code-assistant, code-reviewer, test-automation, go-linter, docker-builder, backend-dev, frontend-dev, refactoring
-
 **Infrastructure (10):** k8s-troubleshooter, storage-debugger, devops, iac, cloud-architect, network, sre, monitoring, capacity-planner, cost-optimizer
-
 **Security (6):** security-auditor, security-tester, secrets-manager, compliance-auditor, compliance-validator, chaos-engineer
-
 **Docs/Research (5):** doc-generator, doc-writer, ai-research, research-assistant, code-explainer
-
 **Specialized (20):** linkedin, prompt-engineer, git-identity, ml-trainer, database, api-designer, microservices, openshift, azure, filesystem, snapshot, manifest-validator, integration-tester, load-tester, qa-automation, rag-specialist, unified-doc, incident-responder, release-manager, performance-optimizer
 
 ---
@@ -239,15 +219,10 @@ ai-dev-toolkit/
 ## Commands (28 total)
 
 **Core:** fix, review, test, deploy-driver, build-docker-images
-
 **Dev:** code-review, generate-code-ai, format-go-code, run-all-tests, validate-k8s-manifests
-
 **Docs:** generate-docs, document-fix, live-doc, explain-code
-
 **Infra:** remote-server-ops, k8s-integration, benchmark-performance, system-diag
-
 **Orchestration:** multi-agent-orchestrate, agent-coordinate, dag-visualize, create-agent
-
 **Research/AI:** ai-research, read-cv, mcp-connect
 
 ---
@@ -255,13 +230,9 @@ ai-dev-toolkit/
 ## Skills (17 total)
 
 **Storage:** storage-driver-development, storage-troubleshooting, distributed-filesystem, filesystem-performance-tuning
-
 **Kubernetes:** kubernetes-storage, kubernetes-operator-patterns, openshift-deployment, container-security
-
 **Development:** go-best-practices, grpc-development, docker-optimization, ci-cd-pipelines
-
 **AI:** ai-assisted-development, llm-integration, prompt-engineering, research-methodology
-
 **Other:** big-data-connector
 
 ---
