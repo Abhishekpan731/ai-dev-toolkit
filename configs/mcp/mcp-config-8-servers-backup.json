@@ -1,0 +1,245 @@
+{
+  "mcpServers": {
+    "__comment_infrastructure": "=== INFRASTRUCTURE & CLOUD-NATIVE (10 servers) ===",
+    "kubernetes": {
+      "__status": "PLACEHOLDER - No official npm package available",
+      "__note": "Requested but not yet available as MCP server. Monitor https://github.com/modelcontextprotocol/servers",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-kubernetes"],
+      "description": "Kubernetes cluster management - pods, deployments, services, logs (UNAVAILABLE)",
+      "disabled": true
+    },
+    "docker": {
+      "command": "npx",
+      "args": ["-y", "mcp-docker-server"],
+      "description": "Docker container management - list, start, stop, logs, exec, resource usage (v1.0.1)",
+      "alwaysAllow": ["docker_ps", "docker_images", "docker_logs", "docker_exec", "docker_inspect", "docker_stats"]
+    },
+    "terraform": {
+      "__status": "PLACEHOLDER - HashiCorp package is Docker-based only",
+      "__note": "github.com/hashicorp/terraform-mcp-server requires Docker deployment, not stdio/npx compatible",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-terraform"],
+      "description": "Terraform Infrastructure-as-Code management (UNAVAILABLE - Docker only)",
+      "disabled": true
+    },
+    "prometheus": {
+      "__status": "PLACEHOLDER - No official npm package available",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-prometheus"],
+      "description": "Prometheus metrics querying and health monitoring (UNAVAILABLE)",
+      "disabled": true
+    },
+    "grafana": {
+      "__status": "PLACEHOLDER - Official package requires custom deployment",
+      "__note": "github.com/grafana/mcp-grafana requires Helm/K8s deployment, not stdio compatible",
+      "command": "npx",
+      "args": ["-y", "mcp-grafana"],
+      "description": "Grafana dashboard data and visualization (UNAVAILABLE - K8s only)",
+      "disabled": true
+    },
+    "cloudflare": {
+      "__status": "PLACEHOLDER - No official npm package available",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-cloudflare"],
+      "env": {
+        "CLOUDFLARE_API_KEY": "${CLOUDFLARE_API_KEY}",
+        "CLOUDFLARE_ACCOUNT_ID": "${CLOUDFLARE_ACCOUNT_ID}"
+      },
+      "description": "Cloudflare Workers, KV storage, DNS management (UNAVAILABLE)",
+      "disabled": true
+    },
+    "digitalocean": {
+      "__status": "PLACEHOLDER - No official npm package available",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-digitalocean"],
+      "env": {
+        "DIGITALOCEAN_TOKEN": "${DIGITALOCEAN_TOKEN}"
+      },
+      "description": "DigitalOcean droplets and block storage management (UNAVAILABLE)",
+      "disabled": true
+    },
+    "vercel": {
+      "__status": "PLACEHOLDER - No official npm package available",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-vercel"],
+      "env": {
+        "VERCEL_TOKEN": "${VERCEL_TOKEN}"
+      },
+      "description": "Vercel deployments and environment variables (UNAVAILABLE)",
+      "disabled": true
+    },
+    "railway": {
+      "__status": "PLACEHOLDER - No official npm package available",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-railway"],
+      "env": {
+        "RAILWAY_TOKEN": "${RAILWAY_TOKEN}"
+      },
+      "description": "Railway infrastructure management (UNAVAILABLE)",
+      "disabled": true
+    },
+    "aws": {
+      "__status": "PLACEHOLDER - Community versions exist but not standardized",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-aws"],
+      "env": {
+        "AWS_ACCESS_KEY_ID": "${AWS_ACCESS_KEY_ID}",
+        "AWS_SECRET_ACCESS_KEY": "${AWS_SECRET_ACCESS_KEY}",
+        "AWS_REGION": "${AWS_REGION}"
+      },
+      "description": "AWS S3, EC2, Lambda management (UNAVAILABLE - no official package)",
+      "disabled": true
+    },
+
+    "__comment_databases": "=== DATABASES & STORAGE (10 servers) ===",
+    "postgresql": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/${POSTGRES_DB}"
+      ],
+      "description": "PostgreSQL database integration for portfolio-postgresql service (v0.6.2)",
+      "alwaysAllow": ["query", "list_tables", "describe_table", "read_query"]
+    },
+    "mysql": {
+      "__status": "PLACEHOLDER - Community packages exist but not standardized",
+      "__note": "Multiple community implementations exist, no official @modelcontextprotocol package",
+      "command": "npx",
+      "args": ["-y", "mcp-mysql-server", "mysql://root:${MYSQL_ROOT_PASSWORD}@localhost:3306"],
+      "description": "MySQL/MariaDB database management (UNAVAILABLE - no official package)",
+      "disabled": true
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "mcp-sqlite-server"],
+      "description": "SQLite local database interaction - query, schema inspection, explain queries (v0.5.0)",
+      "alwaysAllow": ["query", "schema", "table_info", "explain", "list_databases"]
+    },
+    "mongodb": {
+      "command": "npx",
+      "args": ["-y", "mcp-mongo-server"],
+      "env": {
+        "MONGODB_URI": "${MONGODB_URI}"
+      },
+      "description": "MongoDB NoSQL document querying and collection management (v2.0.2)",
+      "alwaysAllow": ["list_collections", "find", "aggregate", "count"]
+    },
+    "redis": {
+      "__status": "PLACEHOLDER - No official npm package available",
+      "command": "npx",
+      "args": ["-y", "mcp-redis-server"],
+      "env": {
+        "REDIS_URL": "${REDIS_URL}"
+      },
+      "description": "Redis cache management and key-value operations (UNAVAILABLE)",
+      "disabled": true
+    },
+    "qdrant": {
+      "__status": "PLACEHOLDER - No official npm package available",
+      "command": "npx",
+      "args": ["-y", "mcp-qdrant-server"],
+      "env": {
+        "QDRANT_URL": "${QDRANT_URL}",
+        "QDRANT_API_KEY": "${QDRANT_API_KEY}"
+      },
+      "description": "Qdrant vector database for AI memory (UNAVAILABLE)",
+      "disabled": true
+    },
+    "chromadb": {
+      "__status": "PLACEHOLDER - No official npm package available",
+      "command": "npx",
+      "args": ["-y", "mcp-chromadb-server"],
+      "description": "ChromaDB open-source embedding database (UNAVAILABLE)",
+      "disabled": true
+    },
+    "airtable": {
+      "__status": "PLACEHOLDER - No official npm package available",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-airtable"],
+      "env": {
+        "AIRTABLE_API_KEY": "${AIRTABLE_API_KEY}"
+      },
+      "description": "Airtable relational data via API (UNAVAILABLE)",
+      "disabled": true
+    },
+    "pinecone": {
+      "__status": "PLACEHOLDER - No official npm package available",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-pinecone"],
+      "env": {
+        "PINECONE_API_KEY": "${PINECONE_API_KEY}"
+      },
+      "description": "Pinecone vector search integration (UNAVAILABLE)",
+      "disabled": true
+    },
+    "surrealdb": {
+      "__status": "PLACEHOLDER - No official npm package available",
+      "command": "npx",
+      "args": ["-y", "mcp-surrealdb-server"],
+      "description": "SurrealDB multi-model database management (UNAVAILABLE)",
+      "disabled": true
+    },
+
+    "__comment_development": "=== DEVELOPMENT TOOLS & GIT (10 servers) ===",
+    "filesystem-external-repos": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "<USER_HOME>/.external-repos/csi-driver-host-path",
+        "<USER_HOME>/.external-repos/csi-lib-utils",
+        "<USER_HOME>/.external-repos/csi-spec"
+      ],
+      "description": "Direct filesystem access to external CSI reference repositories",
+      "alwaysAllow": ["read_file", "list_directory"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@executeautomation/playwright-mcp-server"],
+      "description": "Browser automation for web scraping, testing, and portfolio reading (/read-portfolio command)",
+      "alwaysAllow": ["playwright_navigate", "playwright_screenshot", "playwright_content", "playwright_pdf"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "description": "Persistent memory across sessions for context retention and learning",
+      "alwaysAllow": ["create_entities", "create_relations", "search_nodes"]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "description": "Enhanced reasoning with step-by-step problem decomposition",
+      "alwaysAllow": ["sequentialThinking"]
+    },
+    "postgresql": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}"
+      ],
+      "description": "PostgreSQL database integration for portfolio-postgresql service (v0.6.2)",
+      "alwaysAllow": ["query", "list_tables", "describe_table", "read_query"]
+    },
+    "docker": {
+      "command": "npx",
+      "args": ["-y", "mcp-docker-server"],
+      "description": "Docker container management - list, start, stop, logs, exec, resource usage (v1.0.1)",
+      "alwaysAllow": ["docker_ps", "docker_images", "docker_logs", "docker_exec", "docker_inspect", "docker_stats"]
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "description": "Official Anthropic browser automation using Puppeteer (v2025.5.12)",
+      "alwaysAllow": ["puppeteer_navigate", "puppeteer_screenshot", "puppeteer_click", "puppeteer_fill", "puppeteer_evaluate"]
+    },
+    "everything": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-everything"],
+      "description": "Official Anthropic reference server with prompts, resources, and tools for testing (v2026.1.26)",
+      "alwaysAllow": ["echo", "add", "longRunningOperation", "sampleLLM"]
+    }
+  }
+}

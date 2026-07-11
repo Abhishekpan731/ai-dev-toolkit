@@ -1,0 +1,15 @@
+{
+  "multi_agent_orchestration": {
+    "max_concurrent_agents": 3,
+    "max_concurrent_ssh_sessions": 2,
+    "max_parallel_vms": 2,
+    "memory_limit_per_agent_gb": 4,
+    "enable_wave_throttling": true,
+    "wave_delay_seconds": 30
+  },
+  "resource_limits": {
+    "max_total_memory_gb": 20,
+    "max_process_count": 10,
+    "enable_auto_cleanup": true
+  }
+}

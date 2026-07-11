@@ -1,0 +1,454 @@
+{
+  "mcpServers": {
+    "_comment_infrastructure": "=== INFRASTRUCTURE & CLOUD-NATIVE (10 servers) ===",
+
+    "kubernetes": {
+      "_status": "UNAVAILABLE",
+      "_note": "No official npm package. Monitor github.com/modelcontextprotocol/servers",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-kubernetes"],
+      "description": "Kubernetes cluster management - pods, deployments, logs (PLACEHOLDER)"
+    },
+
+    "docker": {
+      "command": "npx",
+      "args": ["-y", "mcp-docker-server"],
+      "description": "Docker container management - containers, images, volumes, logs (v1.0.1 - OPERATIONAL)",
+      "alwaysAllow": ["docker_ps", "docker_images", "docker_logs", "docker_exec"]
+    },
+
+    "terraform": {
+      "_status": "UNAVAILABLE",
+      "_note": "HashiCorp's version is Docker-based only, not stdio compatible",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-terraform"],
+      "description": "Terraform Infrastructure-as-Code management (PLACEHOLDER)"
+    },
+
+    "prometheus": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-prometheus"],
+      "description": "Prometheus metrics querying and health monitoring (PLACEHOLDER)"
+    },
+
+    "grafana": {
+      "_status": "UNAVAILABLE",
+      "_note": "Official grafana/mcp-grafana requires K8s/Helm deployment",
+      "command": "npx",
+      "args": ["-y", "mcp-grafana"],
+      "description": "Grafana dashboard data and visualization (PLACEHOLDER)"
+    },
+
+    "cloudflare": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-cloudflare"],
+      "env": {"CLOUDFLARE_API_KEY": "${CLOUDFLARE_API_KEY}"},
+      "description": "Cloudflare Workers, KV storage, DNS (PLACEHOLDER)"
+    },
+
+    "digitalocean": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-digitalocean"],
+      "env": {"DIGITALOCEAN_TOKEN": "${DIGITALOCEAN_TOKEN}"},
+      "description": "DigitalOcean droplets and block storage (PLACEHOLDER)"
+    },
+
+    "vercel": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-vercel"],
+      "env": {"VERCEL_TOKEN": "${VERCEL_TOKEN}"},
+      "description": "Vercel deployments and environment variables (PLACEHOLDER)"
+    },
+
+    "railway": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-railway"],
+      "env": {"RAILWAY_TOKEN": "${RAILWAY_TOKEN}"},
+      "description": "Railway infrastructure management (PLACEHOLDER)"
+    },
+
+    "aws": {
+      "_status": "UNAVAILABLE",
+      "_note": "Community versions exist but not standardized",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-aws"],
+      "env": {
+        "AWS_ACCESS_KEY_ID": "${AWS_ACCESS_KEY_ID}",
+        "AWS_SECRET_ACCESS_KEY": "${AWS_SECRET_ACCESS_KEY}",
+        "AWS_REGION": "${AWS_REGION}"
+      },
+      "description": "AWS S3, EC2, Lambda management (PLACEHOLDER)"
+    },
+
+    "_comment_databases": "=== DATABASES & STORAGE (10 servers) ===",
+
+    "postgresql": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/${POSTGRES_DB}"
+      ],
+      "description": "PostgreSQL database - schema inspection, SQL execution (v0.6.2 - OPERATIONAL)",
+      "alwaysAllow": ["query", "list_tables", "describe_table"]
+    },
+
+    "mysql": {
+      "_status": "UNAVAILABLE",
+      "_note": "Community packages exist, no official @modelcontextprotocol version",
+      "command": "npx",
+      "args": ["-y", "mcp-mysql-server"],
+      "env": {"MYSQL_URI": "${MYSQL_URI}"},
+      "description": "MySQL/MariaDB database management (PLACEHOLDER)"
+    },
+
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "mcp-sqlite-server"],
+      "description": "SQLite local database - query, schema, explain (v0.5.0 - OPERATIONAL)",
+      "alwaysAllow": ["query", "schema", "table_info"]
+    },
+
+    "mongodb": {
+      "command": "npx",
+      "args": ["-y", "mcp-mongo-server"],
+      "env": {"MONGODB_URI": "${MONGODB_URI}"},
+      "description": "MongoDB NoSQL document querying (v2.0.2 - OPERATIONAL)",
+      "alwaysAllow": ["list_collections", "find", "aggregate"]
+    },
+
+    "redis": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "mcp-redis-server"],
+      "env": {"REDIS_URL": "${REDIS_URL}"},
+      "description": "Redis cache management and key-value operations (PLACEHOLDER)"
+    },
+
+    "qdrant": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "mcp-qdrant-server"],
+      "env": {"QDRANT_URL": "${QDRANT_URL}"},
+      "description": "Qdrant vector database for AI memory (PLACEHOLDER)"
+    },
+
+    "chromadb": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "mcp-chromadb-server"],
+      "description": "ChromaDB open-source embedding database (PLACEHOLDER)"
+    },
+
+    "airtable": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-airtable"],
+      "env": {"AIRTABLE_API_KEY": "${AIRTABLE_API_KEY}"},
+      "description": "Airtable relational data via API (PLACEHOLDER)"
+    },
+
+    "pinecone": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-pinecone"],
+      "env": {"PINECONE_API_KEY": "${PINECONE_API_KEY}"},
+      "description": "Pinecone vector search integration (PLACEHOLDER)"
+    },
+
+    "surrealdb": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "mcp-surrealdb-server"],
+      "description": "SurrealDB multi-model database (PLACEHOLDER)"
+    },
+
+    "_comment_development": "=== DEVELOPMENT TOOLS & GIT (10 servers) ===",
+
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "<USER_HOME>/.external-repos/csi-driver-host-path",
+        "<USER_HOME>/.external-repos/csi-lib-utils",
+        "<USER_HOME>/.external-repos/csi-spec"
+      ],
+      "description": "Filesystem access to CSI reference repositories (OPERATIONAL)",
+      "alwaysAllow": ["read_file", "list_directory"]
+    },
+
+    "github": {
+      "_status": "REMOVED - External API dependency",
+      "_note": "Removed to maintain no-auth FOSS stack. Re-enable by uncommenting",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {"GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"},
+      "description": "GitHub PRs, Issues, Actions (AVAILABLE but requires auth)"
+    },
+
+    "git": {
+      "_status": "PYTHON-BASED",
+      "_note": "Requires uvx (Python), not npx. Use: uvx mcp-server-git --repository /path",
+      "command": "uvx",
+      "args": ["mcp-server-git", "--repository", "${GIT_REPO_PATH}"],
+      "description": "Local Git repository management (AVAILABLE via uvx)"
+    },
+
+    "gitlab": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gitlab"],
+      "env": {"GITLAB_TOKEN": "${GITLAB_TOKEN}"},
+      "description": "GitLab DevOps integration (PLACEHOLDER)"
+    },
+
+    "bitbucket": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-bitbucket"],
+      "env": {"BITBUCKET_TOKEN": "${BITBUCKET_TOKEN}"},
+      "description": "Bitbucket repository and pipeline management (PLACEHOLDER)"
+    },
+
+    "postman": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postman"],
+      "env": {"POSTMAN_API_KEY": "${POSTMAN_API_KEY}"},
+      "description": "Postman API collection execution (PLACEHOLDER)"
+    },
+
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@executeautomation/playwright-mcp-server"],
+      "description": "Browser automation and UI testing (OPERATIONAL)",
+      "alwaysAllow": ["playwright_navigate", "playwright_screenshot"]
+    },
+
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "description": "Headless browser control for scraping/testing (v2025.5.12 - OPERATIONAL)",
+      "alwaysAllow": ["puppeteer_navigate", "puppeteer_screenshot"]
+    },
+
+    "sentry": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sentry"],
+      "env": {"SENTRY_AUTH_TOKEN": "${SENTRY_AUTH_TOKEN}"},
+      "description": "Sentry stack traces and error reports (PLACEHOLDER)"
+    },
+
+    "sonarqube": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sonarqube"],
+      "env": {"SONARQUBE_TOKEN": "${SONARQUBE_TOKEN}"},
+      "description": "SonarQube code quality and security analysis (PLACEHOLDER)"
+    },
+
+    "_comment_content": "=== CONTENT & DOCUMENTATION (10 servers) ===",
+
+    "brave-search": {
+      "_status": "REMOVED - External API dependency",
+      "_note": "Removed to maintain no-auth FOSS stack. Re-enable by uncommenting",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {"BRAVE_API_KEY": "${BRAVE_API_KEY}"},
+      "description": "Privacy-centric web search (AVAILABLE but requires auth)"
+    },
+
+    "fetch": {
+      "_status": "PYTHON-BASED",
+      "_note": "Requires uvx (Python). Use: uvx mcp-server-fetch",
+      "command": "uvx",
+      "args": ["mcp-server-fetch"],
+      "description": "Convert URLs to LLM-friendly Markdown (AVAILABLE via uvx)"
+    },
+
+    "firecrawl": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-firecrawl"],
+      "env": {"FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"},
+      "description": "Deep web crawling into clean Markdown (PLACEHOLDER)"
+    },
+
+    "markdownify": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-markdownify"],
+      "description": "Convert PDF/Docx/XLSX to Markdown (PLACEHOLDER)"
+    },
+
+    "obsidian": {
+      "command": "npx",
+      "args": ["-y", "obsidian-mcp-server"],
+      "env": {
+        "OBSIDIAN_REST_API_KEY": "${OBSIDIAN_REST_API_KEY}",
+        "OBSIDIAN_VAULT_PATH": "${OBSIDIAN_VAULT_PATH}"
+      },
+      "description": "Obsidian vault management - requires Local REST API plugin (v2.8.0 - OPERATIONAL)",
+      "alwaysAllow": ["search_vault", "read_note", "create_note"]
+    },
+
+    "markdown-vault": {
+      "command": "npx",
+      "args": ["-y", "@wirux/mcp-markdown-vault", "--vault-path", "${MARKDOWN_VAULT_PATH}"],
+      "description": "Headless markdown knowledge base - no Obsidian required (OPERATIONAL)",
+      "alwaysAllow": ["search", "read", "write"]
+    },
+
+    "notion": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-notion"],
+      "env": {"NOTION_API_KEY": "${NOTION_API_KEY}"},
+      "description": "Notion documentation and team wikis (PLACEHOLDER)"
+    },
+
+    "confluence": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-confluence"],
+      "env": {
+        "CONFLUENCE_URL": "${CONFLUENCE_URL}",
+        "CONFLUENCE_TOKEN": "${CONFLUENCE_TOKEN}"
+      },
+      "description": "Atlassian Confluence enterprise documentation (PLACEHOLDER)"
+    },
+
+    "wikipedia": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-wikipedia"],
+      "description": "Wikipedia general knowledge and technical concepts (PLACEHOLDER)"
+    },
+
+    "arxiv": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-arxiv"],
+      "description": "ArXiv research papers on AI and distributed systems (PLACEHOLDER)"
+    },
+
+    "youtube-transcript": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-youtube-transcript"],
+      "description": "Extract text from technical YouTube tutorials (PLACEHOLDER)"
+    },
+
+    "_comment_communication": "=== COMMUNICATION & PRODUCTIVITY (10 servers) ===",
+
+    "slack": {
+      "_status": "REMOVED - External API dependency",
+      "_note": "Removed to maintain no-auth FOSS stack. Re-enable by uncommenting",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
+      },
+      "description": "Slack messaging and alerts (AVAILABLE but requires auth)"
+    },
+
+    "discord": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-discord"],
+      "env": {"DISCORD_BOT_TOKEN": "${DISCORD_BOT_TOKEN}"},
+      "description": "Discord developer communities (PLACEHOLDER)"
+    },
+
+    "linear": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-linear"],
+      "env": {"LINEAR_API_KEY": "${LINEAR_API_KEY}"},
+      "description": "Linear high-performance task tracking (PLACEHOLDER)"
+    },
+
+    "jira": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-jira"],
+      "env": {
+        "JIRA_URL": "${JIRA_URL}",
+        "JIRA_EMAIL": "${JIRA_EMAIL}",
+        "JIRA_API_TOKEN": "${JIRA_API_TOKEN}"
+      },
+      "description": "Jira enterprise ticket management (PLACEHOLDER)"
+    },
+
+    "google-calendar": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-google-calendar"],
+      "env": {"GOOGLE_CALENDAR_CREDENTIALS": "${GOOGLE_CALENDAR_CREDENTIALS}"},
+      "description": "Google Calendar meeting scheduling (PLACEHOLDER)"
+    },
+
+    "gmail": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gmail"],
+      "env": {"GMAIL_CREDENTIALS": "${GMAIL_CREDENTIALS}"},
+      "description": "Gmail search and draft technical emails (PLACEHOLDER)"
+    },
+
+    "trello": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-trello"],
+      "env": {
+        "TRELLO_API_KEY": "${TRELLO_API_KEY}",
+        "TRELLO_TOKEN": "${TRELLO_TOKEN}"
+      },
+      "description": "Trello visual task management (PLACEHOLDER)"
+    },
+
+    "zoom": {
+      "_status": "UNAVAILABLE",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-zoom"],
+      "env": {
+        "ZOOM_CLIENT_ID": "${ZOOM_CLIENT_ID}",
+        "ZOOM_CLIENT_SECRET": "${ZOOM_CLIENT_SECRET}"
+      },
+      "description": "Zoom meeting links and recordings (PLACEHOLDER)"
+    },
+
+    "_comment_logic": "=== ADVANCED REASONING & LOGIC (2 servers) ===",
+
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "description": "Long-term persistent graph memory for agents (OPERATIONAL)",
+      "alwaysAllow": ["create_entities", "create_relations", "search_nodes"]
+    },
+
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "description": "Structured step-by-step reasoning for debugging (OPERATIONAL)",
+      "alwaysAllow": ["sequentialThinking"]
+    },
+
+    "_comment_testing": "=== TESTING & REFERENCE (2 servers) ===",
+
+    "everything": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-everything"],
+      "description": "Official Anthropic reference server for MCP testing (v2026.1.26 - OPERATIONAL)",
+      "alwaysAllow": ["echo", "add", "longRunningOperation"]
+    }
+  }
+}

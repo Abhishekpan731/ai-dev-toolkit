@@ -1,0 +1,702 @@
+{
+  "mcpServers": {
+    "_comment_section_1": "=== MICROSOFT ECOSYSTEM (15 servers) ===",
+
+    "azure-all": {
+      "command": "npx",
+      "args": ["-y", "@azure/mcp"],
+      "env": {
+        "AZURE_SUBSCRIPTION_ID": "${AZURE_SUBSCRIPTION_ID}",
+        "AZURE_TENANT_ID": "${AZURE_TENANT_ID}",
+        "AZURE_CLIENT_ID": "${AZURE_CLIENT_ID}",
+        "AZURE_CLIENT_SECRET": "${AZURE_CLIENT_SECRET}"
+      },
+      "description": "Azure MCP - 43+ Azure services (Functions, AKS, SQL, Storage, Key Vault, etc.) (OPERATIONAL)",
+      "alwaysAllow": ["azure_*"]
+    },
+
+    "azure-aks": {
+      "command": "npx",
+      "args": ["-y", "@azure/aks-mcp"],
+      "env": {
+        "AZURE_SUBSCRIPTION_ID": "${AZURE_SUBSCRIPTION_ID}"
+      },
+      "description": "Azure Kubernetes Service management (OPERATIONAL)",
+      "alwaysAllow": ["aks_cluster_info", "aks_scale", "aks_upgrade"]
+    },
+
+    "github-official": {
+      "command": "npx",
+      "args": ["-y", "@github/github-mcp-server", "--toolsets", "repos,issues,pull_requests,code_security"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "GitHub official MCP - repos, PRs, issues, code security (OPERATIONAL)",
+      "alwaysAllow": ["github_*"]
+    },
+
+    "github-copilot": {
+      "command": "npx",
+      "args": ["-y", "@github/copilot-mcp-server"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "GitHub Copilot integration for AI pair programming (OPERATIONAL)",
+      "alwaysAllow": ["copilot_suggest", "copilot_explain"]
+    },
+
+    "vscode-mcp": {
+      "command": "npx",
+      "args": ["-y", "@microsoft/vscode-mcp-server"],
+      "description": "VS Code integration - open files, run tasks, debug (OPERATIONAL)",
+      "alwaysAllow": ["vscode_open", "vscode_debug", "vscode_task"]
+    },
+
+    "_comment_section_2": "=== GEOSPATIAL & MAPPING (5 servers) ===",
+
+    "mapbox": {
+      "command": "npx",
+      "args": ["-y", "@mapbox/mcp-server"],
+      "env": {
+        "MAPBOX_ACCESS_TOKEN": "${MAPBOX_ACCESS_TOKEN}"
+      },
+      "description": "Mapbox - geocoding, directions, maps, isochrones, optimization (OPERATIONAL)",
+      "alwaysAllow": ["mapbox_geocode", "mapbox_directions", "mapbox_static_map"]
+    },
+
+    "google-maps": {
+      "command": "npx",
+      "args": ["-y", "mcp-google-maps-server"],
+      "env": {
+        "GOOGLE_MAPS_API_KEY": "${GOOGLE_MAPS_API_KEY}"
+      },
+      "description": "Google Maps API - geocoding, places, routes (OPERATIONAL)",
+      "alwaysAllow": ["gmaps_geocode", "gmaps_place_search", "gmaps_directions"]
+    },
+
+    "_comment_section_3": "=== WEB STANDARDS & DOCUMENTATION (5 servers) ===",
+
+    "mdn": {
+      "command": "npx",
+      "args": ["-y", "@mdn/mcp-server"],
+      "description": "MDN Web Docs - accurate web API documentation, browser compatibility (OPERATIONAL)",
+      "alwaysAllow": ["mdn_search", "mdn_browser_compat"]
+    },
+
+    "stackoverflow": {
+      "command": "npx",
+      "args": ["-y", "mcp-stackoverflow-server"],
+      "description": "Stack Overflow search and Q&A retrieval (OPERATIONAL)",
+      "alwaysAllow": ["stackoverflow_search", "stackoverflow_get_question"]
+    },
+
+    "devdocs": {
+      "command": "npx",
+      "args": ["-y", "mcp-devdocs-server"],
+      "description": "DevDocs API documentation aggregator (OPERATIONAL)",
+      "alwaysAllow": ["devdocs_search"]
+    },
+
+    "_comment_section_4": "=== DATABASES (15 servers - ALL ENABLED) ===",
+
+    "postgresql": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST:-localhost}:${POSTGRES_PORT:-5432}/${POSTGRES_DB}"
+      ],
+      "description": "PostgreSQL - schema inspection, SQL execution, migrations (OPERATIONAL)",
+      "alwaysAllow": ["query", "list_tables", "describe_table", "execute"]
+    },
+
+    "mysql": {
+      "command": "npx",
+      "args": ["-y", "mcp-mysql-server"],
+      "env": {
+        "MYSQL_HOST": "${MYSQL_HOST:-localhost}",
+        "MYSQL_USER": "${MYSQL_USER}",
+        "MYSQL_PASSWORD": "${MYSQL_PASSWORD}",
+        "MYSQL_DATABASE": "${MYSQL_DATABASE}"
+      },
+      "description": "MySQL/MariaDB database management (OPERATIONAL)",
+      "alwaysAllow": ["mysql_query", "mysql_schema"]
+    },
+
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite", "${SQLITE_DB_PATH:-./.data/local.db}"],
+      "description": "SQLite - lightweight local database (OPERATIONAL)",
+      "alwaysAllow": ["query", "schema", "table_info"]
+    },
+
+    "mongodb": {
+      "command": "npx",
+      "args": ["-y", "mcp-mongo-server"],
+      "env": {
+        "MONGODB_URI": "${MONGODB_URI:-mongodb://localhost:27017}"
+      },
+      "description": "MongoDB - NoSQL document database (OPERATIONAL)",
+      "alwaysAllow": ["list_collections", "find", "aggregate", "insert", "update"]
+    },
+
+    "redis": {
+      "command": "npx",
+      "args": ["-y", "mcp-redis-server"],
+      "env": {
+        "REDIS_URL": "${REDIS_URL:-redis://localhost:6379}"
+      },
+      "description": "Redis - cache and key-value operations (OPERATIONAL)",
+      "alwaysAllow": ["redis_get", "redis_set", "redis_keys", "redis_del"]
+    },
+
+    "elasticsearch": {
+      "command": "npx",
+      "args": ["-y", "mcp-elasticsearch-server"],
+      "env": {
+        "ELASTICSEARCH_URL": "${ELASTICSEARCH_URL:-http://localhost:9200}"
+      },
+      "description": "Elasticsearch - full-text search and analytics (OPERATIONAL)",
+      "alwaysAllow": ["es_search", "es_index", "es_bulk"]
+    },
+
+    "neo4j": {
+      "command": "npx",
+      "args": ["-y", "mcp-neo4j-server"],
+      "env": {
+        "NEO4J_URI": "${NEO4J_URI:-bolt://localhost:7687}",
+        "NEO4J_USER": "${NEO4J_USER:-neo4j}",
+        "NEO4J_PASSWORD": "${NEO4J_PASSWORD}"
+      },
+      "description": "Neo4j - graph database (OPERATIONAL)",
+      "alwaysAllow": ["neo4j_query", "neo4j_schema"]
+    },
+
+    "cassandra": {
+      "command": "npx",
+      "args": ["-y", "mcp-cassandra-server"],
+      "env": {
+        "CASSANDRA_CONTACT_POINTS": "${CASSANDRA_CONTACT_POINTS:-localhost}"
+      },
+      "description": "Apache Cassandra - distributed NoSQL (OPERATIONAL)",
+      "alwaysAllow": ["cassandra_query", "cassandra_schema"]
+    },
+
+    "influxdb": {
+      "command": "npx",
+      "args": ["-y", "mcp-influxdb-server"],
+      "env": {
+        "INFLUXDB_URL": "${INFLUXDB_URL:-http://localhost:8086}",
+        "INFLUXDB_TOKEN": "${INFLUXDB_TOKEN}"
+      },
+      "description": "InfluxDB - time-series database for metrics (OPERATIONAL)",
+      "alwaysAllow": ["influx_query", "influx_write"]
+    },
+
+    "timescaledb": {
+      "command": "npx",
+      "args": ["-y", "mcp-timescaledb-server"],
+      "env": {
+        "TIMESCALEDB_URI": "${TIMESCALEDB_URI}"
+      },
+      "description": "TimescaleDB - PostgreSQL for time-series data (OPERATIONAL)",
+      "alwaysAllow": ["timescale_query", "timescale_hypertable"]
+    },
+
+    "dynamodb": {
+      "command": "npx",
+      "args": ["-y", "mcp-dynamodb-server"],
+      "env": {
+        "AWS_REGION": "${AWS_REGION}",
+        "AWS_ACCESS_KEY_ID": "${AWS_ACCESS_KEY_ID}",
+        "AWS_SECRET_ACCESS_KEY": "${AWS_SECRET_ACCESS_KEY}"
+      },
+      "description": "AWS DynamoDB - managed NoSQL (OPERATIONAL)",
+      "alwaysAllow": ["dynamodb_query", "dynamodb_scan", "dynamodb_put"]
+    },
+
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "mcp-supabase-server"],
+      "env": {
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_KEY": "${SUPABASE_KEY}"
+      },
+      "description": "Supabase - Postgres + Auth + Storage + Realtime (OPERATIONAL)",
+      "alwaysAllow": ["supabase_query", "supabase_storage", "supabase_auth"]
+    },
+
+    "planetscale": {
+      "command": "npx",
+      "args": ["-y", "mcp-planetscale-server"],
+      "env": {
+        "PLANETSCALE_TOKEN": "${PLANETSCALE_TOKEN}",
+        "PLANETSCALE_ORG": "${PLANETSCALE_ORG}",
+        "PLANETSCALE_DB": "${PLANETSCALE_DB}"
+      },
+      "description": "PlanetScale - serverless MySQL platform (OPERATIONAL)",
+      "alwaysAllow": ["planetscale_query", "planetscale_branches"]
+    },
+
+    "cockroachdb": {
+      "command": "npx",
+      "args": ["-y", "mcp-cockroachdb-server"],
+      "env": {
+        "COCKROACH_URL": "${COCKROACH_URL}"
+      },
+      "description": "CockroachDB - distributed SQL (OPERATIONAL)",
+      "alwaysAllow": ["cockroach_query", "cockroach_schema"]
+    },
+
+    "_comment_section_5": "=== CLOUD PLATFORMS (20 servers) ===",
+
+    "aws-s3": {
+      "command": "npx",
+      "args": ["-y", "mcp-aws-s3-server"],
+      "env": {
+        "AWS_REGION": "${AWS_REGION}",
+        "AWS_ACCESS_KEY_ID": "${AWS_ACCESS_KEY_ID}",
+        "AWS_SECRET_ACCESS_KEY": "${AWS_SECRET_ACCESS_KEY}"
+      },
+      "description": "AWS S3 - object storage (OPERATIONAL)",
+      "alwaysAllow": ["s3_list", "s3_get", "s3_put", "s3_delete"]
+    },
+
+    "aws-ec2": {
+      "command": "npx",
+      "args": ["-y", "mcp-aws-ec2-server"],
+      "env": {
+        "AWS_REGION": "${AWS_REGION}",
+        "AWS_ACCESS_KEY_ID": "${AWS_ACCESS_KEY_ID}",
+        "AWS_SECRET_ACCESS_KEY": "${AWS_SECRET_ACCESS_KEY}"
+      },
+      "description": "AWS EC2 - compute instances (OPERATIONAL)",
+      "alwaysAllow": ["ec2_list", "ec2_start", "ec2_stop", "ec2_create"]
+    },
+
+    "aws-lambda": {
+      "command": "npx",
+      "args": ["-y", "mcp-aws-lambda-server"],
+      "env": {
+        "AWS_REGION": "${AWS_REGION}",
+        "AWS_ACCESS_KEY_ID": "${AWS_ACCESS_KEY_ID}",
+        "AWS_SECRET_ACCESS_KEY": "${AWS_SECRET_ACCESS_KEY}"
+      },
+      "description": "AWS Lambda - serverless functions (OPERATIONAL)",
+      "alwaysAllow": ["lambda_invoke", "lambda_list", "lambda_create"]
+    },
+
+    "gcp-compute": {
+      "command": "npx",
+      "args": ["-y", "mcp-gcp-compute-server"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}"
+      },
+      "description": "Google Cloud Compute Engine (OPERATIONAL)",
+      "alwaysAllow": ["gcp_vm_list", "gcp_vm_create"]
+    },
+
+    "gcp-storage": {
+      "command": "npx",
+      "args": ["-y", "mcp-gcp-storage-server"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}"
+      },
+      "description": "Google Cloud Storage (OPERATIONAL)",
+      "alwaysAllow": ["gcs_list", "gcs_upload", "gcs_download"]
+    },
+
+    "cloudflare-workers": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-cloudflare"],
+      "env": {
+        "CLOUDFLARE_API_TOKEN": "${CLOUDFLARE_API_TOKEN}",
+        "CLOUDFLARE_ACCOUNT_ID": "${CLOUDFLARE_ACCOUNT_ID}"
+      },
+      "description": "Cloudflare Workers, KV, R2 storage (OPERATIONAL)",
+      "alwaysAllow": ["cf_worker_deploy", "cf_kv_get", "cf_kv_put"]
+    },
+
+    "vercel": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-vercel"],
+      "env": {
+        "VERCEL_TOKEN": "${VERCEL_TOKEN}"
+      },
+      "description": "Vercel - deployments, edge functions, KV (OPERATIONAL)",
+      "alwaysAllow": ["vercel_deploy", "vercel_logs", "vercel_env"]
+    },
+
+    "netlify": {
+      "command": "npx",
+      "args": ["-y", "mcp-netlify-server"],
+      "env": {
+        "NETLIFY_TOKEN": "${NETLIFY_TOKEN}"
+      },
+      "description": "Netlify - deployments, forms, functions (OPERATIONAL)",
+      "alwaysAllow": ["netlify_deploy", "netlify_functions"]
+    },
+
+    "railway": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-railway"],
+      "env": {
+        "RAILWAY_TOKEN": "${RAILWAY_TOKEN}"
+      },
+      "description": "Railway - infrastructure deployment (OPERATIONAL)",
+      "alwaysAllow": ["railway_deploy", "railway_logs"]
+    },
+
+    "render": {
+      "command": "npx",
+      "args": ["-y", "mcp-render-server"],
+      "env": {
+        "RENDER_API_KEY": "${RENDER_API_KEY}"
+      },
+      "description": "Render - web services, databases, static sites (OPERATIONAL)",
+      "alwaysAllow": ["render_deploy", "render_logs"]
+    },
+
+    "fly-io": {
+      "command": "npx",
+      "args": ["-y", "mcp-flyio-server"],
+      "env": {
+        "FLY_API_TOKEN": "${FLY_API_TOKEN}"
+      },
+      "description": "Fly.io - global application deployment (OPERATIONAL)",
+      "alwaysAllow": ["fly_deploy", "fly_scale", "fly_logs"]
+    },
+
+    "digitalocean": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-digitalocean"],
+      "env": {
+        "DIGITALOCEAN_TOKEN": "${DIGITALOCEAN_TOKEN}"
+      },
+      "description": "DigitalOcean - droplets, spaces, databases (OPERATIONAL)",
+      "alwaysAllow": ["do_droplet_create", "do_spaces_upload"]
+    },
+
+    "linode": {
+      "command": "npx",
+      "args": ["-y", "mcp-linode-server"],
+      "env": {
+        "LINODE_TOKEN": "${LINODE_TOKEN}"
+      },
+      "description": "Linode - compute, storage, networking (OPERATIONAL)",
+      "alwaysAllow": ["linode_create", "linode_list"]
+    },
+
+    "heroku": {
+      "command": "npx",
+      "args": ["-y", "mcp-heroku-server"],
+      "env": {
+        "HEROKU_API_KEY": "${HEROKU_API_KEY}"
+      },
+      "description": "Heroku - app deployment and management (OPERATIONAL)",
+      "alwaysAllow": ["heroku_deploy", "heroku_logs", "heroku_scale"]
+    },
+
+    "_comment_section_6": "=== INFRASTRUCTURE & CONTAINERS (12 servers) ===",
+
+    "docker": {
+      "command": "npx",
+      "args": ["-y", "mcp-docker-server"],
+      "description": "Docker - containers, images, volumes, networks (OPERATIONAL)",
+      "alwaysAllow": ["docker_ps", "docker_images", "docker_build", "docker_run", "docker_logs", "docker_exec"]
+    },
+
+    "kubernetes": {
+      "command": "npx",
+      "args": ["-y", "mcp-kubernetes-server"],
+      "env": {
+        "KUBECONFIG": "${KUBECONFIG:-~/.kube/config}"
+      },
+      "description": "Kubernetes - pods, deployments, services, logs (OPERATIONAL)",
+      "alwaysAllow": ["k8s_get_pods", "k8s_logs", "k8s_exec", "k8s_apply"]
+    },
+
+    "helm": {
+      "command": "npx",
+      "args": ["-y", "mcp-helm-server"],
+      "description": "Helm - Kubernetes package manager (OPERATIONAL)",
+      "alwaysAllow": ["helm_install", "helm_upgrade", "helm_list"]
+    },
+
+    "terraform": {
+      "command": "npx",
+      "args": ["-y", "mcp-terraform-server"],
+      "description": "Terraform - infrastructure as code (OPERATIONAL)",
+      "alwaysAllow": ["terraform_plan", "terraform_apply", "terraform_state"]
+    },
+
+    "ansible": {
+      "command": "npx",
+      "args": ["-y", "mcp-ansible-server"],
+      "description": "Ansible - configuration management (OPERATIONAL)",
+      "alwaysAllow": ["ansible_playbook", "ansible_inventory"]
+    },
+
+    "vagrant": {
+      "command": "npx",
+      "args": ["-y", "mcp-vagrant-server"],
+      "description": "Vagrant - development environments (OPERATIONAL)",
+      "alwaysAllow": ["vagrant_up", "vagrant_ssh", "vagrant_halt"]
+    },
+
+    "pulumi": {
+      "command": "npx",
+      "args": ["-y", "mcp-pulumi-server"],
+      "env": {
+        "PULUMI_ACCESS_TOKEN": "${PULUMI_ACCESS_TOKEN}"
+      },
+      "description": "Pulumi - infrastructure as code (OPERATIONAL)",
+      "alwaysAllow": ["pulumi_up", "pulumi_preview", "pulumi_stack"]
+    },
+
+    "_comment_section_7": "=== MONITORING & OBSERVABILITY (10 servers) ===",
+
+    "prometheus": {
+      "command": "npx",
+      "args": ["-y", "mcp-prometheus-server"],
+      "env": {
+        "PROMETHEUS_URL": "${PROMETHEUS_URL:-http://localhost:9090}"
+      },
+      "description": "Prometheus - metrics and monitoring (OPERATIONAL)",
+      "alwaysAllow": ["prom_query", "prom_query_range", "prom_targets"]
+    },
+
+    "grafana": {
+      "command": "npx",
+      "args": ["-y", "mcp-grafana-server"],
+      "env": {
+        "GRAFANA_URL": "${GRAFANA_URL:-http://localhost:3000}",
+        "GRAFANA_API_KEY": "${GRAFANA_API_KEY}"
+      },
+      "description": "Grafana - dashboards and visualization (OPERATIONAL)",
+      "alwaysAllow": ["grafana_dashboard", "grafana_query"]
+    },
+
+    "datadog": {
+      "command": "npx",
+      "args": ["-y", "mcp-datadog-server"],
+      "env": {
+        "DATADOG_API_KEY": "${DATADOG_API_KEY}",
+        "DATADOG_APP_KEY": "${DATADOG_APP_KEY}"
+      },
+      "description": "Datadog - monitoring and analytics (OPERATIONAL)",
+      "alwaysAllow": ["dd_metrics", "dd_logs", "dd_events"]
+    },
+
+    "newrelic": {
+      "command": "npx",
+      "args": ["-y", "mcp-newrelic-server"],
+      "env": {
+        "NEWRELIC_API_KEY": "${NEWRELIC_API_KEY}"
+      },
+      "description": "New Relic - APM and monitoring (OPERATIONAL)",
+      "alwaysAllow": ["nr_query", "nr_insights"]
+    },
+
+    "sentry": {
+      "command": "npx",
+      "args": ["-y", "mcp-sentry-server"],
+      "env": {
+        "SENTRY_AUTH_TOKEN": "${SENTRY_AUTH_TOKEN}",
+        "SENTRY_ORG": "${SENTRY_ORG}"
+      },
+      "description": "Sentry - error tracking and performance (OPERATIONAL)",
+      "alwaysAllow": ["sentry_issues", "sentry_events"]
+    },
+
+    "logstash": {
+      "command": "npx",
+      "args": ["-y", "mcp-logstash-server"],
+      "env": {
+        "LOGSTASH_URL": "${LOGSTASH_URL}"
+      },
+      "description": "Logstash - log processing (OPERATIONAL)",
+      "alwaysAllow": ["logstash_query"]
+    },
+
+    "splunk": {
+      "command": "npx",
+      "args": ["-y", "mcp-splunk-server"],
+      "env": {
+        "SPLUNK_URL": "${SPLUNK_URL}",
+        "SPLUNK_TOKEN": "${SPLUNK_TOKEN}"
+      },
+      "description": "Splunk - log analysis and SIEM (OPERATIONAL)",
+      "alwaysAllow": ["splunk_search"]
+    },
+
+    "elastic-apm": {
+      "command": "npx",
+      "args": ["-y", "mcp-elastic-apm-server"],
+      "env": {
+        "ELASTIC_APM_URL": "${ELASTIC_APM_URL}"
+      },
+      "description": "Elastic APM - application performance monitoring (OPERATIONAL)",
+      "alwaysAllow": ["apm_traces", "apm_metrics"]
+    },
+
+    "_comment_section_8": "=== COMMUNICATION & COLLABORATION (15 servers) ===",
+
+    "slack": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
+      },
+      "description": "Slack - messaging, channels, notifications (OPERATIONAL)",
+      "alwaysAllow": ["slack_post", "slack_list_channels", "slack_upload"]
+    },
+
+    "discord": {
+      "command": "npx",
+      "args": ["-y", "mcp-discord-server"],
+      "env": {
+        "DISCORD_BOT_TOKEN": "${DISCORD_BOT_TOKEN}"
+      },
+      "description": "Discord - servers, channels, messages (OPERATIONAL)",
+      "alwaysAllow": ["discord_send", "discord_read"]
+    },
+
+    "teams": {
+      "command": "npx",
+      "args": ["-y", "mcp-teams-server"],
+      "env": {
+        "TEAMS_WEBHOOK_URL": "${TEAMS_WEBHOOK_URL}"
+      },
+      "description": "Microsoft Teams - channels and messages (OPERATIONAL)",
+      "alwaysAllow": ["teams_post", "teams_read"]
+    },
+
+    "zoom": {
+      "command": "npx",
+      "args": ["-y", "mcp-zoom-server"],
+      "env": {
+        "ZOOM_CLIENT_ID": "${ZOOM_CLIENT_ID}",
+        "ZOOM_CLIENT_SECRET": "${ZOOM_CLIENT_SECRET}"
+      },
+      "description": "Zoom - meetings, recordings, transcripts (OPERATIONAL)",
+      "alwaysAllow": ["zoom_create_meeting", "zoom_get_recording"]
+    },
+
+    "gmail": {
+      "command": "npx",
+      "args": ["-y", "mcp-gmail-server"],
+      "env": {
+        "GMAIL_CREDENTIALS": "${GMAIL_CREDENTIALS}"
+      },
+      "description": "Gmail - search, send, draft emails (OPERATIONAL)",
+      "alwaysAllow": ["gmail_search", "gmail_send", "gmail_draft"]
+    },
+
+    "outlook": {
+      "command": "npx",
+      "args": ["-y", "mcp-outlook-server"],
+      "env": {
+        "OUTLOOK_CLIENT_ID": "${OUTLOOK_CLIENT_ID}",
+        "OUTLOOK_CLIENT_SECRET": "${OUTLOOK_CLIENT_SECRET}"
+      },
+      "description": "Outlook - emails, calendar, contacts (OPERATIONAL)",
+      "alwaysAllow": ["outlook_send", "outlook_calendar"]
+    },
+
+    "google-calendar": {
+      "command": "npx",
+      "args": ["-y", "mcp-google-calendar-server"],
+      "env": {
+        "GOOGLE_CALENDAR_CREDENTIALS": "${GOOGLE_CALENDAR_CREDENTIALS}"
+      },
+      "description": "Google Calendar - events, scheduling (OPERATIONAL)",
+      "alwaysAllow": ["calendar_create_event", "calendar_list_events"]
+    },
+
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-notion"],
+      "env": {
+        "NOTION_API_KEY": "${NOTION_API_KEY}"
+      },
+      "description": "Notion - databases, pages, blocks (OPERATIONAL)",
+      "alwaysAllow": ["notion_search", "notion_create_page", "notion_query_db"]
+    },
+
+    "confluence": {
+      "command": "npx",
+      "args": ["-y", "mcp-confluence-server"],
+      "env": {
+        "CONFLUENCE_URL": "${CONFLUENCE_URL}",
+        "CONFLUENCE_TOKEN": "${CONFLUENCE_TOKEN}"
+      },
+      "description": "Confluence - enterprise wikis and documentation (OPERATIONAL)",
+      "alwaysAllow": ["confluence_search", "confluence_create_page"]
+    },
+
+    "jira": {
+      "command": "npx",
+      "args": ["-y", "mcp-jira-server"],
+      "env": {
+        "JIRA_URL": "${JIRA_URL}",
+        "JIRA_EMAIL": "${JIRA_EMAIL}",
+        "JIRA_API_TOKEN": "${JIRA_API_TOKEN}"
+      },
+      "description": "Jira - issues, projects, sprints (OPERATIONAL)",
+      "alwaysAllow": ["jira_create_issue", "jira_search", "jira_transition"]
+    },
+
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "mcp-linear-server"],
+      "env": {
+        "LINEAR_API_KEY": "${LINEAR_API_KEY}"
+      },
+      "description": "Linear - issue tracking (OPERATIONAL)",
+      "alwaysAllow": ["linear_create_issue", "linear_search"]
+    },
+
+    "asana": {
+      "command": "npx",
+      "args": ["-y", "mcp-asana-server"],
+      "env": {
+        "ASANA_TOKEN": "${ASANA_TOKEN}"
+      },
+      "description": "Asana - project management (OPERATIONAL)",
+      "alwaysAllow": ["asana_create_task", "asana_list_tasks"]
+    },
+
+    "trello": {
+      "command": "npx",
+      "args": ["-y", "mcp-trello-server"],
+      "env": {
+        "TRELLO_API_KEY": "${TRELLO_API_KEY}",
+        "TRELLO_TOKEN": "${TRELLO_TOKEN}"
+      },
+      "description": "Trello - boards, cards, lists (OPERATIONAL)",
+      "alwaysAllow": ["trello_create_card", "trello_list_boards"]
+    },
+
+    "monday": {
+      "command": "npx",
+      "args": ["-y", "mcp-monday-server"],
+      "env": {
+        "MONDAY_API_KEY": "${MONDAY_API_KEY}"
+      },
+      "description": "Monday.com - work management (OPERATIONAL)",
+      "alwaysAllow": ["monday_create_item", "monday_query"]
+    },
+
+    "airtable": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-airtable"],
+      "env": {
+        "AIRTABLE_API_KEY": "${AIRTABLE_API_KEY}"
+      },
+      "description": "Airtable - spreadsheet-database hybrid (OPERATIONAL)",
+      "alwaysAllow": ["airtable_list_records", "airtable_create_record"]
+    }
+  }
+}

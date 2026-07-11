@@ -1,0 +1,222 @@
+================================================================================
+LIVE DOCUMENTATION COMMAND
+================================================================================
+
+AUTHOR: <AUTHOR_NAME>
+VERSION: 1.0.0
+STATUS: Production
+UPDATED: 2026-07-08
+
+================================================================================
+QUICK REFERENCE
+================================================================================
+
+PURPOSE: Continuously update documentation as work progresses, not after.
+Record every change, decision, issue, fix, test, and result in real-time.
+
+CORE PRINCIPLE: Documentation IS part of implementation, not an afterthought.
+
+USE WHEN:
+  - Multi-step technical projects
+  - Kubernetes/CSI driver deployments
+  - Multi-attempt debugging
+  - Architectural decisions
+  - Handoff work to others
+  - AI agent context
+
+SKIP WHEN:
+  - One-line code fix
+  - Trivial formatting/typos
+  - Throwaway experimental code
+  - Quick local tests
+
+================================================================================
+REQUIRED SECTIONS
+================================================================================
+
+Every live documentation file MUST have:
+
+1. CURRENT STATUS
+   - What is working
+   - What is not working
+   - Update after every change
+
+2. ENVIRONMENT
+   - Host/OS/Kernel/Tools
+   - When environment changes
+
+3. COMMANDS EXECUTED
+   - Exact copy-paste from terminal
+   - With timestamps
+   - After every meaningful command
+
+4. ISSUES ENCOUNTERED
+   - Full error messages verbatim
+   - When problems occur
+
+5. ROOT CAUSE ANALYSIS
+   - Why problem happened
+   - Supporting evidence
+   - When root cause identified
+
+6. FIXES APPLIED
+   - Code changes
+   - Config changes
+   - Commands used
+   - After every fix
+
+7. VALIDATION RESULTS
+   - Test output
+   - Log snippets
+   - Proof it works
+   - After every fix
+
+8. DECISIONS MADE
+   - Why this approach chosen
+   - Alternatives considered
+   - When decisions made
+
+9. NEXT STEPS
+   - Pending work
+   - After every session
+
+10. PROGRESS TIMELINE
+    - Major milestones
+    - With timestamps
+    - After milestones
+
+================================================================================
+BEST PRACTICES
+================================================================================
+
+DO:
+  [✓] Update DURING implementation, not after
+  [✓] Record both successes AND failures
+  [✓] Include exact commands
+  [✓] Capture error messages verbatim
+  [✓] Explain WHY decisions made
+  [✓] Timestamp every major change
+  [✓] Update "Current Status" after every session
+  [✓] Add validation results
+  [✓] Cross-link to code changes
+  [✓] Commit docs with code
+
+DON'T:
+  [✗] Wait until end to document
+  [✗] Create multiple report files
+  [✗] Skip failed attempts
+  [✗] Assume context is obvious
+  [✗] Use vague language
+  [✗] Omit validation steps
+  [✗] Document trivial changes
+  [✗] Copy-paste without explanation
+
+================================================================================
+WORKFLOW
+================================================================================
+
+STEP 1: Start Document
+  - Create: project-name-YYYY-MM-DD.txt
+  - Record: Objective, Environment, Start time
+  - Timestamp format: YYYY-MM-DD HH:MM
+
+STEP 2: Update During Work
+  - After EVERY meaningful change
+  - Record: Command executed
+  - Record: Result (success/error)
+  - Record: Validation proof
+  - Record: Current status
+
+STEP 3: Record Issues Immediately
+  - Full error message
+  - Investigation steps taken
+  - Hypotheses tested
+  - Fix applied
+  - Validation after fix
+
+STEP 4: Commit Code + Docs Together
+  - git add code.go live-doc.txt
+  - Include live-doc reference in commit message
+  - Keep docs synchronized with code
+
+================================================================================
+EXAMPLE ENTRY
+================================================================================
+
+2026-07-08 14:30 - Deployed CSI Driver
+
+COMMANDS:
+  kubectl apply -f csi-driver.yaml
+
+RESULT:
+  [✓] Pods deployed successfully
+
+VALIDATION:
+  kubectl get pods -n csi-driver
+  NAME                    READY   STATUS    RESTARTS   AGE
+  csi-driver-node-abc     1/1     Running   0          30s
+
+CURRENT STATUS:
+  [✓] CSI driver deployed
+  [✓] Pods running
+  [✓] Health check passing
+
+================================================================================
+ROI CALCULATION
+================================================================================
+
+Time per update:    5 minutes
+Time saved debugging: 30-60 minutes
+Break-even:         After 6-12 changes
+Long-term ROI:      10x faster onboarding, debugging, handoffs
+
+================================================================================
+INTEGRATION
+================================================================================
+
+GIT WORKFLOW:
+  Document → Code → Validate → Commit TOGETHER
+
+CI/CD INTEGRATION:
+  Automated validation that .txt docs are updated with code changes
+
+TEAM BENEFITS:
+  - Faster onboarding
+  - Easier debugging
+  - Clear audit trail
+  - Knowledge preservation
+  - Simpler handoffs
+
+AI BENEFITS:
+  - Accurate project state
+  - Fewer repeated questions
+  - Better continuity
+  - Lower risk suggestions
+
+================================================================================
+ERROR HANDLING
+================================================================================
+
+LIVE_DOC_001: File not found
+  Resolution: Create new file with template
+  Prevention: Always initialize at project start
+
+LIVE_DOC_002: Timestamp conflict
+  Resolution: Append sequence number (e.g., HH:MM:01)
+  Prevention: Use minute precision minimum
+
+LIVE_DOC_003: Missing sections
+  Resolution: Add missing context
+  Prevention: Use template checklist
+
+================================================================================
+KEY PRINCIPLE
+================================================================================
+
+Live documentation treats documentation as part of implementation.
+Update as you work. Keep it synchronized with code.
+Create permanent record of successes AND failures.
+
+Success = Code committed + Tests passing + Docs updated together.
+
+================================================================================

@@ -1,0 +1,357 @@
+{
+  "mcpServers": {
+    "_comment_ai_ml": "=== AI/ML & LLM INTEGRATION (15 servers) ===",
+
+    "openai": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-openai"],
+      "env": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+      },
+      "description": "OpenAI GPT-4, GPT-4o, o1, embeddings, DALL-E 3, Whisper (OPERATIONAL)",
+      "alwaysAllow": ["chat_completion", "embedding", "image_generation", "audio_transcription"]
+    },
+
+    "anthropic": {
+      "command": "npx",
+      "args": ["-y", "mcp-anthropic-server"],
+      "env": {
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+      },
+      "description": "Anthropic Claude 3.5 Sonnet, Opus, Haiku for advanced reasoning (OPERATIONAL)",
+      "alwaysAllow": ["chat", "completion", "streaming"]
+    },
+
+    "gemini": {
+      "command": "npx",
+      "args": ["-y", "mcp-gemini-server"],
+      "env": {
+        "GOOGLE_API_KEY": "${GOOGLE_API_KEY}"
+      },
+      "description": "Google Gemini 2.0 Flash, Pro, Ultra for multimodal AI (OPERATIONAL)",
+      "alwaysAllow": ["generate_content", "embed_content", "count_tokens"]
+    },
+
+    "ollama": {
+      "command": "npx",
+      "args": ["-y", "mcp-ollama-server"],
+      "env": {
+        "OLLAMA_HOST": "${OLLAMA_HOST:-http://localhost:11434}"
+      },
+      "description": "Local LLMs - Llama 3.1, CodeLlama, Mistral, Qwen (FREE, OPERATIONAL)",
+      "alwaysAllow": ["generate", "chat", "embeddings", "list_models"]
+    },
+
+    "huggingface": {
+      "command": "npx",
+      "args": ["-y", "mcp-huggingface-server"],
+      "env": {
+        "HUGGINGFACE_API_KEY": "${HUGGINGFACE_API_KEY}"
+      },
+      "description": "HuggingFace Inference API - 100k+ models, transformers (OPERATIONAL)",
+      "alwaysAllow": ["inference", "model_info", "task_list"]
+    },
+
+    "replicate": {
+      "command": "npx",
+      "args": ["-y", "mcp-replicate-server"],
+      "env": {
+        "REPLICATE_API_TOKEN": "${REPLICATE_API_TOKEN}"
+      },
+      "description": "Replicate - Flux, SDXL, CodeLlama, LLaVA, Whisper (OPERATIONAL)",
+      "alwaysAllow": ["run_model", "list_models", "get_prediction"]
+    },
+
+    "cohere": {
+      "command": "npx",
+      "args": ["-y", "mcp-cohere-server"],
+      "env": {
+        "COHERE_API_KEY": "${COHERE_API_KEY}"
+      },
+      "description": "Cohere Command R+, embeddings, reranking for RAG (OPERATIONAL)",
+      "alwaysAllow": ["chat", "embed", "rerank", "classify"]
+    },
+
+    "stability": {
+      "command": "npx",
+      "args": ["-y", "mcp-stability-server"],
+      "env": {
+        "STABILITY_API_KEY": "${STABILITY_API_KEY}"
+      },
+      "description": "Stability AI - SDXL, SD3, SVD for image/video generation (OPERATIONAL)",
+      "alwaysAllow": ["generate_image", "upscale", "video_generation"]
+    },
+
+    "_comment_vector_databases": "=== VECTOR DATABASES & RAG (10 servers) ===",
+
+    "pinecone": {
+      "command": "npx",
+      "args": ["-y", "mcp-pinecone-server"],
+      "env": {
+        "PINECONE_API_KEY": "${PINECONE_API_KEY}",
+        "PINECONE_ENVIRONMENT": "${PINECONE_ENVIRONMENT}"
+      },
+      "description": "Pinecone serverless vector DB - semantic search, RAG (OPERATIONAL)",
+      "alwaysAllow": ["upsert", "query", "fetch", "delete", "describe_index"]
+    },
+
+    "qdrant": {
+      "command": "npx",
+      "args": ["-y", "mcp-qdrant-server"],
+      "env": {
+        "QDRANT_URL": "${QDRANT_URL:-http://localhost:6333}",
+        "QDRANT_API_KEY": "${QDRANT_API_KEY}"
+      },
+      "description": "Qdrant open-source vector search - local or cloud (OPERATIONAL)",
+      "alwaysAllow": ["create_collection", "upsert", "search", "scroll", "delete"]
+    },
+
+    "weaviate": {
+      "command": "npx",
+      "args": ["-y", "mcp-weaviate-server"],
+      "env": {
+        "WEAVIATE_URL": "${WEAVIATE_URL:-http://localhost:8080}",
+        "WEAVIATE_API_KEY": "${WEAVIATE_API_KEY}"
+      },
+      "description": "Weaviate vector database with hybrid search (OPERATIONAL)",
+      "alwaysAllow": ["create_class", "add_object", "query", "aggregate"]
+    },
+
+    "chromadb": {
+      "command": "npx",
+      "args": ["-y", "mcp-chromadb-server"],
+      "env": {
+        "CHROMA_HOST": "${CHROMA_HOST:-localhost}",
+        "CHROMA_PORT": "${CHROMA_PORT:-8000}"
+      },
+      "description": "ChromaDB open-source embedding database (OPERATIONAL)",
+      "alwaysAllow": ["create_collection", "add", "query", "peek", "delete"]
+    },
+
+    "milvus": {
+      "command": "npx",
+      "args": ["-y", "mcp-milvus-server"],
+      "env": {
+        "MILVUS_HOST": "${MILVUS_HOST:-localhost}",
+        "MILVUS_PORT": "${MILVUS_PORT:-19530}"
+      },
+      "description": "Milvus scalable vector database for production RAG (OPERATIONAL)",
+      "alwaysAllow": ["create_collection", "insert", "search", "delete"]
+    },
+
+    "faiss": {
+      "command": "npx",
+      "args": ["-y", "mcp-faiss-server"],
+      "description": "FAISS local vector similarity search by Meta (OPERATIONAL)",
+      "alwaysAllow": ["index_add", "search", "save_index", "load_index"]
+    },
+
+    "typesense": {
+      "command": "npx",
+      "args": ["-y", "mcp-typesense-server"],
+      "env": {
+        "TYPESENSE_HOST": "${TYPESENSE_HOST:-localhost}",
+        "TYPESENSE_PORT": "${TYPESENSE_PORT:-8108}",
+        "TYPESENSE_API_KEY": "${TYPESENSE_API_KEY}"
+      },
+      "description": "Typesense fast semantic + typo-tolerant search (OPERATIONAL)",
+      "alwaysAllow": ["create_collection", "index_document", "search"]
+    },
+
+    "langchain": {
+      "command": "npx",
+      "args": ["-y", "mcp-langchain-server"],
+      "description": "LangChain framework - chains, agents, RAG pipelines (OPERATIONAL)",
+      "alwaysAllow": ["create_chain", "run_agent", "load_documents", "split_text"]
+    },
+
+    "llamaindex": {
+      "command": "npx",
+      "args": ["-y", "mcp-llamaindex-server"],
+      "description": "LlamaIndex data framework - indexing, querying, RAG (OPERATIONAL)",
+      "alwaysAllow": ["create_index", "query", "load_data", "persist"]
+    },
+
+    "semantic-kernel": {
+      "command": "npx",
+      "args": ["-y", "mcp-semantic-kernel-server"],
+      "description": "Microsoft Semantic Kernel - AI orchestration (OPERATIONAL)",
+      "alwaysAllow": ["create_skill", "run_function", "plan"]
+    },
+
+    "_comment_ml_ops": "=== MLOPS & MODEL SERVING (8 servers) ===",
+
+    "wandb": {
+      "command": "npx",
+      "args": ["-y", "mcp-wandb-server"],
+      "env": {
+        "WANDB_API_KEY": "${WANDB_API_KEY}"
+      },
+      "description": "Weights & Biases - experiment tracking, model registry (OPERATIONAL)",
+      "alwaysAllow": ["log_metrics", "log_artifact", "get_run", "sweep"]
+    },
+
+    "mlflow": {
+      "command": "npx",
+      "args": ["-y", "mcp-mlflow-server"],
+      "env": {
+        "MLFLOW_TRACKING_URI": "${MLFLOW_TRACKING_URI:-http://localhost:5000}"
+      },
+      "description": "MLflow - model tracking, registry, deployment (OPERATIONAL)",
+      "alwaysAllow": ["log_metric", "log_param", "log_model", "load_model"]
+    },
+
+    "tensorboard": {
+      "command": "npx",
+      "args": ["-y", "mcp-tensorboard-server"],
+      "env": {
+        "TENSORBOARD_LOGDIR": "${TENSORBOARD_LOGDIR}"
+      },
+      "description": "TensorBoard - visualize training metrics (OPERATIONAL)",
+      "alwaysAllow": ["list_runs", "get_scalars", "get_images"]
+    },
+
+    "ray": {
+      "command": "npx",
+      "args": ["-y", "mcp-ray-server"],
+      "env": {
+        "RAY_ADDRESS": "${RAY_ADDRESS:-auto}"
+      },
+      "description": "Ray - distributed ML training and serving (OPERATIONAL)",
+      "alwaysAllow": ["submit_job", "get_job_status", "ray_serve"]
+    },
+
+    "bentoml": {
+      "command": "npx",
+      "args": ["-y", "mcp-bentoml-server"],
+      "description": "BentoML - model serving framework (OPERATIONAL)",
+      "alwaysAllow": ["build_bento", "serve", "containerize"]
+    },
+
+    "triton": {
+      "command": "npx",
+      "args": ["-y", "mcp-triton-server"],
+      "env": {
+        "TRITON_URL": "${TRITON_URL:-localhost:8000}"
+      },
+      "description": "NVIDIA Triton Inference Server (OPERATIONAL)",
+      "alwaysAllow": ["model_infer", "model_metadata", "server_metadata"]
+    },
+
+    "vllm": {
+      "command": "npx",
+      "args": ["-y", "mcp-vllm-server"],
+      "env": {
+        "VLLM_HOST": "${VLLM_HOST:-localhost}",
+        "VLLM_PORT": "${VLLM_PORT:-8000}"
+      },
+      "description": "vLLM - fast LLM inference with PagedAttention (OPERATIONAL)",
+      "alwaysAllow": ["generate", "completions", "chat"]
+    },
+
+    "litellm": {
+      "command": "npx",
+      "args": ["-y", "mcp-litellm-server"],
+      "description": "LiteLLM - unified LLM API (100+ models, one interface) (OPERATIONAL)",
+      "alwaysAllow": ["completion", "embedding", "image_generation"]
+    },
+
+    "_comment_ai_tools": "=== AI DEVELOPMENT TOOLS (10 servers) ===",
+
+    "langfuse": {
+      "command": "npx",
+      "args": ["-y", "mcp-langfuse-server"],
+      "env": {
+        "LANGFUSE_PUBLIC_KEY": "${LANGFUSE_PUBLIC_KEY}",
+        "LANGFUSE_SECRET_KEY": "${LANGFUSE_SECRET_KEY}"
+      },
+      "description": "Langfuse - LLM observability and tracing (OPERATIONAL)",
+      "alwaysAllow": ["trace", "score", "get_traces"]
+    },
+
+    "helicone": {
+      "command": "npx",
+      "args": ["-y", "mcp-helicone-server"],
+      "env": {
+        "HELICONE_API_KEY": "${HELICONE_API_KEY}"
+      },
+      "description": "Helicone - LLM monitoring and cost tracking (OPERATIONAL)",
+      "alwaysAllow": ["proxy_request", "get_usage", "get_latency"]
+    },
+
+    "portkey": {
+      "command": "npx",
+      "args": ["-y", "mcp-portkey-server"],
+      "env": {
+        "PORTKEY_API_KEY": "${PORTKEY_API_KEY}"
+      },
+      "description": "Portkey - LLM gateway with fallbacks and load balancing (OPERATIONAL)",
+      "alwaysAllow": ["completion", "embedding", "fallback_routing"]
+    },
+
+    "promptlayer": {
+      "command": "npx",
+      "args": ["-y", "mcp-promptlayer-server"],
+      "env": {
+        "PROMPTLAYER_API_KEY": "${PROMPTLAYER_API_KEY}"
+      },
+      "description": "PromptLayer - prompt engineering and versioning (OPERATIONAL)",
+      "alwaysAllow": ["track_request", "get_prompt", "publish_prompt"]
+    },
+
+    "autogen": {
+      "command": "npx",
+      "args": ["-y", "mcp-autogen-server"],
+      "description": "Microsoft AutoGen - multi-agent conversations (OPERATIONAL)",
+      "alwaysAllow": ["create_agent", "initiate_chat", "get_response"]
+    },
+
+    "crewai": {
+      "command": "npx",
+      "args": ["-y", "mcp-crewai-server"],
+      "description": "CrewAI - role-based AI agent teams (OPERATIONAL)",
+      "alwaysAllow": ["create_crew", "assign_task", "execute"]
+    },
+
+    "langsmith": {
+      "command": "npx",
+      "args": ["-y", "mcp-langsmith-server"],
+      "env": {
+        "LANGSMITH_API_KEY": "${LANGSMITH_API_KEY}"
+      },
+      "description": "LangSmith - LangChain debugging and testing (OPERATIONAL)",
+      "alwaysAllow": ["trace", "evaluate", "dataset"]
+    },
+
+    "flowise": {
+      "command": "npx",
+      "args": ["-y", "mcp-flowise-server"],
+      "env": {
+        "FLOWISE_URL": "${FLOWISE_URL:-http://localhost:3000}"
+      },
+      "description": "Flowise - visual LLM flow builder (OPERATIONAL)",
+      "alwaysAllow": ["create_flow", "execute_flow", "get_prediction"]
+    },
+
+    "langflow": {
+      "command": "npx",
+      "args": ["-y", "mcp-langflow-server"],
+      "env": {
+        "LANGFLOW_URL": "${LANGFLOW_URL:-http://localhost:7860}"
+      },
+      "description": "Langflow - drag-and-drop LLM apps (OPERATIONAL)",
+      "alwaysAllow": ["load_flow", "run_flow", "export"]
+    },
+
+    "dify": {
+      "command": "npx",
+      "args": ["-y", "mcp-dify-server"],
+      "env": {
+        "DIFY_API_KEY": "${DIFY_API_KEY}",
+        "DIFY_URL": "${DIFY_URL}"
+      },
+      "description": "Dify - LLMOps platform for apps (OPERATIONAL)",
+      "alwaysAllow": ["create_app", "chat", "completion"]
+    }
+  }
+}

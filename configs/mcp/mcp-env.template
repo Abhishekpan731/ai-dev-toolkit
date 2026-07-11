@@ -1,0 +1,93 @@
+# MCP Server Environment Variables
+# @author Abhishek Pandey
+# Copy this file: cp .augment/mcp-env.template .env.mcp
+# Then: source .env.mcp
+
+# ============================================================
+# REQUIRED
+# ============================================================
+
+# GitHub Personal Access Token (Abhishekpan731 account)
+# Get from: https://github.com/settings/tokens
+# Scopes: repo, read:org, workflow
+export GITHUB_TOKEN="ghp_YOUR_TOKEN_HERE"
+
+# ============================================================
+# OPTIONAL - Enable as needed
+# ============================================================
+
+# --- Web Search & Documentation ---
+
+# Brave Search API (for web search)
+# Get from: https://brave.com/search/api/
+export BRAVE_API_KEY=""
+
+# Context7 API (for library documentation)
+# Get from: https://context7.com/
+export CONTEXT7_API_KEY=""
+
+# --- Project Management (DDN/Bitbucket Work) ---
+
+# Jira (for ES-XXXX tickets)
+export JIRA_URL="https://your-company.atlassian.net"
+export JIRA_EMAIL="abpandey@ddn.com"
+export JIRA_API_TOKEN=""
+
+# Confluence (DDN documentation)
+export CONFLUENCE_URL="https://your-company.atlassian.net/wiki"
+export CONFLUENCE_EMAIL="abpandey@ddn.com"
+export CONFLUENCE_API_TOKEN=""
+
+# Glean (enterprise search)
+export GLEAN_API_KEY=""
+export GLEAN_DOMAIN="your-company.glean.com"
+
+# --- Project Management (Personal Projects) ---
+
+# Linear (personal task tracking)
+# Get from: https://linear.app/settings/api
+export LINEAR_API_KEY=""
+
+# Notion (knowledge base)
+# Get from: https://www.notion.so/my-integrations
+export NOTION_API_KEY=""
+
+# --- Communication ---
+
+# Slack (team notifications)
+# Get from: https://api.slack.com/apps
+export SLACK_BOT_TOKEN=""
+export SLACK_TEAM_ID=""
+
+# --- Infrastructure ---
+
+# PostgreSQL (local/remote databases)
+export POSTGRES_CONNECTION_STRING="postgresql://user:password@localhost:5432/database"
+
+# Kubernetes (for CSI deployments)
+export KUBECONFIG="${HOME}/.kube/config"
+
+# AWS (if using AWS services)
+export AWS_PROFILE="default"
+export AWS_REGION="us-east-1"
+
+# Prometheus (monitoring)
+export PROMETHEUS_URL="http://localhost:9090"
+
+# ============================================================
+# USAGE
+# ============================================================
+
+# 1. Copy this template:
+#    cp .augment/mcp-env.template .env.mcp
+
+# 2. Fill in your tokens in .env.mcp
+
+# 3. Add to .gitignore:
+#    echo ".env.mcp" >> .gitignore
+
+# 4. Load environment:
+#    source .env.mcp
+
+# 5. Verify:
+#    echo $GITHUB_TOKEN | cut -c1-10

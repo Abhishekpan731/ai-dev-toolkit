@@ -1,0 +1,276 @@
+{
+  "mcpServers": {
+    "_comment_priority_1": "=== CORE PRODUCTIVITY (Always Active - FREE) ===",
+
+    "ollama": {
+      "command": "npx",
+      "args": ["-y", "ollama-mcp"],
+      "env": {
+        "OLLAMA_HOST": "${OLLAMA_HOST:-http://localhost:11434}"
+      },
+      "description": "Local LLMs - Qwen3-Coder, Llama 3.1, CodeLlama (FREE, ACTIVE)",
+      "alwaysAllow": ["generate", "chat", "embeddings", "list_models"],
+      "autoStart": true
+    },
+
+    "chromadb": {
+      "command": "npx",
+      "args": ["-y", "mcp-chromadb-server"],
+      "env": {
+        "CHROMA_HOST": "${CHROMA_HOST:-localhost}",
+        "CHROMA_PORT": "${CHROMA_PORT:-8000}"
+      },
+      "description": "ChromaDB vector database for RAG (FREE, ACTIVE)",
+      "alwaysAllow": ["create_collection", "add", "query", "peek", "delete"],
+      "autoStart": true
+    },
+
+    "docker": {
+      "command": "npx",
+      "args": ["-y", "mcp-docker-server"],
+      "description": "Docker container management (FREE, ACTIVE)",
+      "alwaysAllow": ["docker_ps", "docker_images", "docker_build", "docker_run", "docker_logs", "docker_exec"],
+      "autoStart": true
+    },
+
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "<LOCAL_PROJECT_PATH>",
+        "<USER_HOME>/.external-repos/csi-driver-host-path",
+        "<USER_HOME>/.external-repos/csi-lib-utils",
+        "<USER_HOME>/.external-repos/csi-spec"
+      ],
+      "description": "Multi-repository filesystem access (ACTIVE)",
+      "alwaysAllow": ["read_file", "write_file", "list_directory", "create_directory"],
+      "autoStart": true
+    },
+
+    "git": {
+      "command": "uvx",
+      "args": ["mcp-server-git", "--repository", "<LOCAL_PROJECT_PATH>"],
+      "description": "Git repository management (ACTIVE)",
+      "alwaysAllow": ["git_status", "git_diff", "git_log", "git_commit", "git_branch"],
+      "autoStart": true
+    },
+
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "description": "Long-term persistent graph memory (ACTIVE)",
+      "alwaysAllow": ["create_entities", "create_relations", "search_nodes"],
+      "autoStart": true
+    },
+
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "description": "Structured step-by-step reasoning (ACTIVE)",
+      "alwaysAllow": ["sequentialThinking"],
+      "autoStart": true
+    },
+
+    "_comment_priority_2": "=== DATABASES (Auto-start local DBs) ===",
+
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite", "${SQLITE_DB_PATH:-./.data/local.db}"],
+      "description": "SQLite local database (ACTIVE)",
+      "alwaysAllow": ["query", "schema", "table_info"],
+      "autoStart": true
+    },
+
+    "postgresql": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@${POSTGRES_HOST:-localhost}:${POSTGRES_PORT:-5432}/${POSTGRES_DB:-postgres}"
+      ],
+      "description": "PostgreSQL database (ACTIVE if running)",
+      "alwaysAllow": ["query", "list_tables", "describe_table", "execute"],
+      "autoStart": false,
+      "optional": true
+    },
+
+    "mongodb": {
+      "command": "npx",
+      "args": ["-y", "mcp-mongo-server"],
+      "env": {
+        "MONGODB_URI": "${MONGODB_URI:-mongodb://localhost:27017}"
+      },
+      "description": "MongoDB NoSQL database (ACTIVE if running)",
+      "alwaysAllow": ["list_collections", "find", "aggregate", "insert", "update"],
+      "autoStart": false,
+      "optional": true
+    },
+
+    "redis": {
+      "command": "npx",
+      "args": ["-y", "mcp-redis-server"],
+      "env": {
+        "REDIS_URL": "${REDIS_URL:-redis://localhost:6379}"
+      },
+      "description": "Redis cache (ACTIVE if running)",
+      "alwaysAllow": ["redis_get", "redis_set", "redis_keys", "redis_del"],
+      "autoStart": false,
+      "optional": true
+    },
+
+    "_comment_priority_3": "=== KUBERNETES & INFRASTRUCTURE (FREE - Critical for CSI work) ===",
+
+    "kubernetes": {
+      "command": "npx",
+      "args": ["-y", "kubernetes-mcp-server@latest"],
+      "env": {
+        "KUBECONFIG": "${KUBECONFIG:-~/.kube/config}"
+      },
+      "description": "Kubernetes/OpenShift cluster management via kubectl (FREE, ACTIVE)",
+      "alwaysAllow": ["k8s_*", "kubectl_*"],
+      "autoStart": true
+    },
+
+    "_comment_priority_4": "=== DEVELOPMENT TOOLS (Always Active) ===",
+
+    "ai-context-engine": {
+      "_status": "DISABLED - Critical memory leak on ARM64",
+      "_issue": "Causes 130GB+ memory spike with --mcp-auto-workspace flag",
+      "_workaround": "Use shell aliases or .ai-config/scripts/ai-safe.sh",
+      "_author": "<AUTHOR_NAME>",
+      "_date": "2026-07-06",
+      "command": "auggie",
+      "args": ["--mcp", "--workspace-root", "<WORKSPACE_ROOT>"],
+      "description": "AI Context Engine (DISABLED - Use shell aliases instead)",
+      "disabled": true,
+      "autoStart": false
+    },
+
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@executeautomation/playwright-mcp-server"],
+      "description": "Browser automation (ACTIVE)",
+      "alwaysAllow": ["playwright_navigate", "playwright_screenshot", "playwright_pdf", "playwright_execute"],
+      "autoStart": true
+    },
+
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "description": "Headless browser control (ACTIVE)",
+      "alwaysAllow": ["puppeteer_navigate", "puppeteer_screenshot", "puppeteer_evaluate"],
+      "autoStart": true
+    },
+
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "description": "Free web search via Brave API (FREE tier: 2000 queries/month)",
+      "alwaysAllow": ["brave_web_search", "brave_local_search"],
+      "autoStart": true,
+      "optional": true
+    },
+
+    "everart": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-everything"],
+      "description": "Search everything on macOS (FREE, local Spotlight)",
+      "alwaysAllow": ["search_files", "search_apps", "search_documents"],
+      "autoStart": true
+    },
+
+    "_comment_priority_5": "=== INFRASTRUCTURE & SYSTEM (NEW - FREE) ===",
+
+    "ssh-server": {
+      "command": "npx",
+      "args": ["-y", "ssh-mcp-server"],
+      "description": "SSH/SFTP management - 49 tools for remote operations (FREE, ACTIVE)",
+      "alwaysAllow": ["ssh_*", "sftp_*"],
+      "autoStart": false,
+      "optional": true,
+      "_note": "Configure SSH hosts before enabling"
+    },
+
+    "system-monitor": {
+      "command": "npx",
+      "args": ["-y", "mcp-system-monitor"],
+      "description": "System monitoring - CPU, memory, disk, network (FREE, ACTIVE)",
+      "alwaysAllow": ["get_system_info", "get_cpu_info", "get_memory_info", "get_disk_info"],
+      "autoStart": true
+    },
+
+    "console-automation": {
+      "command": "npx",
+      "args": ["-y", "mcp-console-automation"],
+      "description": "Terminal automation - 50 concurrent sessions (FREE, ACTIVE)",
+      "alwaysAllow": ["console_*", "terminal_*"],
+      "autoStart": false,
+      "optional": true,
+      "_note": "Enable for advanced terminal automation"
+    },
+
+    "_comment_priority_6": "=== TIME & UTILITIES (NEW - FREE) ===",
+
+    "time": {
+      "command": "npx",
+      "args": ["-y", "mcp-server-time"],
+      "description": "Time & timezone utilities - conversions, current time (FREE, ACTIVE)",
+      "alwaysAllow": ["get_current_time", "convert_time", "get_timezone_info"],
+      "autoStart": true
+    },
+
+    "weather": {
+      "command": "npx",
+      "args": ["-y", "weather-mcp"],
+      "description": "Global weather - 12 tools via Open-Meteo (FREE, ACTIVE)",
+      "alwaysAllow": ["get_current_weather", "get_forecast", "get_air_quality"],
+      "autoStart": false,
+      "optional": true
+    },
+
+    "web-search": {
+      "command": "npx",
+      "args": ["-y", "free-mcp-search-server"],
+      "description": "Free web search via DuckDuckGo (no API key, FREE, ACTIVE)",
+      "alwaysAllow": ["search_web", "get_page_content", "batch_search"],
+      "autoStart": true
+    },
+
+    "_comment_priority_7": "=== DEVELOPMENT TOOLS (NEW - FREE) ===",
+
+    "npm-registry": {
+      "command": "npx",
+      "args": ["-y", "mcp-npm-registry"],
+      "description": "npm package search, versions, CVEs (FREE, ACTIVE)",
+      "alwaysAllow": ["search_packages", "get_package_info", "check_vulnerabilities"],
+      "autoStart": true
+    },
+
+    "_comment_priority_8": "=== CLOUD & EXTERNAL APIS (Enabled with API keys) ===",
+
+    "github-official": {
+      "command": "npx",
+      "args": ["-y", "@github/github-mcp-server", "--toolsets", "repos,issues,pull_requests,code_security"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "GitHub official MCP (ACTIVE if GITHUB_TOKEN set)",
+      "alwaysAllow": ["github_*"],
+      "autoStart": false,
+      "requiresAuth": true
+    },
+
+    "openai": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-openai"],
+      "env": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+      },
+      "description": "OpenAI GPT-4o, embeddings (ACTIVE if OPENAI_API_KEY set)",
+      "alwaysAllow": ["chat_completion", "embedding", "image_generation"],
+      "autoStart": false,
+      "requiresAuth": true
+    }
+  }
+}

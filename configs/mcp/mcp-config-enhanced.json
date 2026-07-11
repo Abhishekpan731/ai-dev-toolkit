@@ -1,0 +1,242 @@
+{
+  "$schema": "https://example.com/schemas/mcp-config.json",
+  "description": "Enhanced MCP Configuration for Multi-Project Productivity - @author <AUTHOR_NAME>",
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "GitHub API for repos, issues, PRs, code search - Abhishekpan731 account",
+      "alwaysAllow": [
+        "search_repositories",
+        "get_file_contents",
+        "list_commits",
+        "create_or_update_file",
+        "push_files",
+        "create_issue",
+        "create_pull_request"
+      ]
+    },
+    "filesystem-external-repos": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "<USER_HOME>/.external-repos/csi-driver-host-path",
+        "<USER_HOME>/.external-repos/csi-lib-utils",
+        "<USER_HOME>/.external-repos/csi-spec"
+      ],
+      "description": "Direct filesystem access to external CSI reference repositories",
+      "alwaysAllow": ["read_file", "list_directory", "search_files"]
+    },
+    "filesystem-projects": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "<USER_HOME>/Desktop/DDN",
+        "<USER_HOME>/Desktop/DDN-Projects"
+      ],
+      "description": "Access to all DDN project directories for cross-project references",
+      "alwaysAllow": ["read_file", "list_directory", "search_files"]
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+      },
+      "description": "Web search for latest documentation and Stack Overflow solutions",
+      "alwaysAllow": ["brave_web_search"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@executeautomation/playwright-mcp-server"],
+      "description": "Browser automation for reading CV at <PERSONAL_CV_URL>",
+      "alwaysAllow": [
+        "playwright_navigate",
+        "playwright_screenshot",
+        "playwright_click",
+        "playwright_pdf",
+        "playwright_evaluate",
+        "playwright_content"
+      ]
+    },
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"],
+      "description": "HTTP requests to fetch CV content, API responses, and web resources",
+      "alwaysAllow": ["fetch"]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp"],
+      "env": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      },
+      "description": "Enhanced documentation search for Go, Kubernetes, Lustre libraries",
+      "alwaysAllow": ["resolve_library", "query_documentation"]
+    },
+    "slack": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
+      },
+      "description": "Slack integration for team communication and notifications",
+      "alwaysAllow": [
+        "list_channels",
+        "list_users",
+        "post_message",
+        "get_channel_history",
+        "add_reaction"
+      ]
+    },
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-linear"],
+      "env": {
+        "LINEAR_API_KEY": "${LINEAR_API_KEY}"
+      },
+      "description": "Linear issue tracking and project management",
+      "alwaysAllow": [
+        "search_issues",
+        "create_issue",
+        "update_issue",
+        "list_teams",
+        "list_projects"
+      ]
+    },
+    "jira": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-jira"],
+      "env": {
+        "JIRA_URL": "${JIRA_URL}",
+        "JIRA_EMAIL": "${JIRA_EMAIL}",
+        "JIRA_API_TOKEN": "${JIRA_API_TOKEN}"
+      },
+      "description": "Jira integration for DDN/Bitbucket work items (ES-XXXX tickets)",
+      "alwaysAllow": [
+        "search_issues",
+        "get_issue",
+        "create_issue",
+        "update_issue",
+        "add_comment",
+        "get_transitions"
+      ]
+    },
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@notionhq/mcp-server-notion"],
+      "env": {
+        "NOTION_API_KEY": "${NOTION_API_KEY}"
+      },
+      "description": "Notion integration for documentation and knowledge base",
+      "alwaysAllow": ["search_pages", "get_page", "create_page", "update_page"]
+    },
+    "confluence": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-confluence"],
+      "env": {
+        "CONFLUENCE_URL": "${CONFLUENCE_URL}",
+        "CONFLUENCE_EMAIL": "${CONFLUENCE_EMAIL}",
+        "CONFLUENCE_API_TOKEN": "${CONFLUENCE_API_TOKEN}"
+      },
+      "description": "Confluence integration for DDN/Enterprise documentation",
+      "alwaysAllow": ["search_content", "get_page", "create_page", "update_page"]
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "description": "Web scraping and content extraction from CV site and other web pages",
+      "alwaysAllow": [
+        "puppeteer_navigate",
+        "puppeteer_screenshot",
+        "puppeteer_content",
+        "puppeteer_evaluate"
+      ]
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git"],
+      "description": "Git operations for version control automation",
+      "alwaysAllow": ["git_status", "git_diff", "git_log", "git_commit", "git_branch"]
+    },
+    "docker": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-docker"],
+      "description": "Docker container and image management",
+      "alwaysAllow": [
+        "list_containers",
+        "list_images",
+        "inspect_container",
+        "get_logs",
+        "exec_command"
+      ]
+    },
+    "kubernetes": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-kubernetes"],
+      "env": {
+        "KUBECONFIG": "${KUBECONFIG:-~/.kube/config}"
+      },
+      "description": "Kubernetes cluster management for CSI driver deployments",
+      "alwaysAllow": [
+        "get_pods",
+        "get_deployments",
+        "get_services",
+        "get_logs",
+        "describe",
+        "get_events"
+      ]
+    },
+
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "${POSTGRES_CONNECTION_STRING}"
+      },
+      "description": "PostgreSQL database access for local development and queries",
+      "alwaysAllow": ["query", "list_tables", "describe_table", "get_schema"]
+    },
+    "aws": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-aws"],
+      "env": {
+        "AWS_PROFILE": "${AWS_PROFILE:-default}",
+        "AWS_REGION": "${AWS_REGION:-us-east-1}"
+      },
+      "description": "AWS service management (S3, EC2, Lambda, etc.)",
+      "alwaysAllow": [
+        "list_buckets",
+        "list_instances",
+        "get_logs",
+        "list_functions",
+        "describe_resources"
+      ]
+    },
+    "glean": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-glean"],
+      "env": {
+        "GLEAN_API_KEY": "${GLEAN_API_KEY}",
+        "GLEAN_DOMAIN": "${GLEAN_DOMAIN}"
+      },
+      "description": "Glean enterprise search across all company knowledge bases",
+      "alwaysAllow": ["search"]
+    },
+    "prometheus": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-prometheus"],
+      "env": {
+        "PROMETHEUS_URL": "${PROMETHEUS_URL:-http://localhost:9090}"
+      },
+      "description": "Prometheus metrics and monitoring queries for observability",
+      "alwaysAllow": ["query", "query_range", "list_metrics", "get_labels"]
+    }
+  }
+}

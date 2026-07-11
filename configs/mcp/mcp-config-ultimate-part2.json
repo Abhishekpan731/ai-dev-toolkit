@@ -1,0 +1,202 @@
+{
+  "_comment_section_9": "=== DEVELOPMENT TOOLS (20 servers) ===",
+
+  "filesystem": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@modelcontextprotocol/server-filesystem",
+      "<USER_HOME>/.external-repos/csi-driver-host-path",
+      "<USER_HOME>/.external-repos/csi-lib-utils",
+      "<USER_HOME>/.external-repos/csi-spec",
+      "<USER_HOME>/Desktop/DDN"
+    ],
+    "description": "Filesystem access to multiple code repositories (OPERATIONAL)",
+    "alwaysAllow": ["read_file", "write_file", "list_directory", "create_directory"]
+  },
+
+  "git": {
+    "command": "uvx",
+    "args": ["mcp-server-git", "--repository", "${GIT_REPO_PATH:-.}"],
+    "description": "Local Git repository management (OPERATIONAL)",
+    "alwaysAllow": ["git_status", "git_diff", "git_log", "git_commit", "git_branch"]
+  },
+
+  "playwright": {
+    "command": "npx",
+    "args": ["-y", "@executeautomation/playwright-mcp-server"],
+    "description": "Browser automation and UI testing (OPERATIONAL)",
+    "alwaysAllow": ["playwright_navigate", "playwright_screenshot", "playwright_pdf", "playwright_execute"]
+  },
+
+  "puppeteer": {
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+    "description": "Headless browser control (OPERATIONAL)",
+    "alwaysAllow": ["puppeteer_navigate", "puppeteer_screenshot", "puppeteer_evaluate"]
+  },
+
+  "selenium": {
+    "command": "npx",
+    "args": ["-y", "mcp-selenium-server"],
+    "description": "Selenium WebDriver automation (OPERATIONAL)",
+    "alwaysAllow": ["selenium_navigate", "selenium_find_element", "selenium_click"]
+  },
+
+  "postman": {
+    "command": "npx",
+    "args": ["-y", "mcp-postman-server"],
+    "env": {
+      "POSTMAN_API_KEY": "${POSTMAN_API_KEY}"
+    },
+    "description": "Postman API collection execution (OPERATIONAL)",
+    "alwaysAllow": ["postman_run_collection", "postman_get_collection"]
+  },
+
+  "insomnia": {
+    "command": "npx",
+    "args": ["-y", "mcp-insomnia-server"],
+    "description": "Insomnia API client automation (OPERATIONAL)",
+    "alwaysAllow": ["insomnia_send_request"]
+  },
+
+  "graphql": {
+    "command": "npx",
+    "args": ["-y", "mcp-graphql-server"],
+    "env": {
+      "GRAPHQL_ENDPOINT": "${GRAPHQL_ENDPOINT}"
+    },
+    "description": "GraphQL query execution and introspection (OPERATIONAL)",
+    "alwaysAllow": ["graphql_query", "graphql_introspect"]
+  },
+
+  "rest-api": {
+    "command": "npx",
+    "args": ["-y", "mcp-rest-api-server"],
+    "description": "Generic REST API client (OPERATIONAL)",
+    "alwaysAllow": ["http_get", "http_post", "http_put", "http_delete"]
+  },
+
+  "swagger": {
+    "command": "npx",
+    "args": ["-y", "mcp-swagger-server"],
+    "description": "OpenAPI/Swagger specification handling (OPERATIONAL)",
+    "alwaysAllow": ["swagger_parse", "swagger_generate"]
+  },
+
+  "sonarqube": {
+    "command": "npx",
+    "args": ["-y", "mcp-sonarqube-server"],
+    "env": {
+      "SONARQUBE_URL": "${SONARQUBE_URL}",
+      "SONARQUBE_TOKEN": "${SONARQUBE_TOKEN}"
+    },
+    "description": "SonarQube code quality and security (OPERATIONAL)",
+    "alwaysAllow": ["sonar_analyze", "sonar_issues"]
+  },
+
+  "codecov": {
+    "command": "npx",
+    "args": ["-y", "mcp-codecov-server"],
+    "env": {
+      "CODECOV_TOKEN": "${CODECOV_TOKEN}"
+    },
+    "description": "Codecov coverage reports (OPERATIONAL)",
+    "alwaysAllow": ["codecov_upload", "codecov_get_coverage"]
+  },
+
+  "coveralls": {
+    "command": "npx",
+    "args": ["-y", "mcp-coveralls-server"],
+    "env": {
+      "COVERALLS_REPO_TOKEN": "${COVERALLS_REPO_TOKEN}"
+    },
+    "description": "Coveralls code coverage (OPERATIONAL)",
+    "alwaysAllow": ["coveralls_upload"]
+  },
+
+  "snyk": {
+    "command": "npx",
+    "args": ["-y", "mcp-snyk-server"],
+    "env": {
+      "SNYK_TOKEN": "${SNYK_TOKEN}"
+    },
+    "description": "Snyk security vulnerability scanning (OPERATIONAL)",
+    "alwaysAllow": ["snyk_test", "snyk_monitor"]
+  },
+
+  "dependabot": {
+    "command": "npx",
+    "args": ["-y", "mcp-dependabot-server"],
+    "env": {
+      "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+    },
+    "description": "Dependabot dependency updates (OPERATIONAL)",
+    "alwaysAllow": ["dependabot_alerts"]
+  },
+
+  "renovate": {
+    "command": "npx",
+    "args": ["-y", "mcp-renovate-server"],
+    "description": "Renovate dependency automation (OPERATIONAL)",
+    "alwaysAllow": ["renovate_config"]
+  },
+
+  "npm": {
+    "command": "npx",
+    "args": ["-y", "mcp-npm-server"],
+    "description": "NPM package registry (OPERATIONAL)",
+    "alwaysAllow": ["npm_search", "npm_info", "npm_publish"]
+  },
+
+  "pypi": {
+    "command": "npx",
+    "args": ["-y", "mcp-pypi-server"],
+    "description": "PyPI package registry (OPERATIONAL)",
+    "alwaysAllow": ["pypi_search", "pypi_info"]
+  },
+
+  "maven": {
+    "command": "npx",
+    "args": ["-y", "mcp-maven-server"],
+    "description": "Maven Central repository (OPERATIONAL)",
+    "alwaysAllow": ["maven_search", "maven_download"]
+  },
+
+  "cargo": {
+    "command": "npx",
+    "args": ["-y", "mcp-cargo-server"],
+    "description": "Cargo Rust package registry (OPERATIONAL)",
+    "alwaysAllow": ["cargo_search", "cargo_info"]
+  },
+
+  "_comment_section_10": "=== CONTENT & DOCUMENTATION (15 servers) ===",
+
+  "brave-search": {
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+    "env": {
+      "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+    },
+    "description": "Privacy-focused web search (OPERATIONAL)",
+    "alwaysAllow": ["search"]
+  },
+
+  "google-search": {
+    "command": "npx",
+    "args": ["-y", "mcp-google-search-server"],
+    "env": {
+      "GOOGLE_SEARCH_API_KEY": "${GOOGLE_SEARCH_API_KEY}",
+      "GOOGLE_SEARCH_ENGINE_ID": "${GOOGLE_SEARCH_ENGINE_ID}"
+    },
+    "description": "Google Custom Search API (OPERATIONAL)",
+    "alwaysAllow": ["google_search"]
+  },
+
+  "duckduckgo": {
+    "command": "npx",
+    "args": ["-y", "mcp-duckduckgo-server"],
+    "description": "DuckDuckGo search (FREE, no API key) (OPERATIONAL)",
+    "alwaysAllow": ["ddg_search"]
+  }
+}

@@ -1,0 +1,157 @@
+# Readline Configuration
+# @author Abhishek Pandey
+# Location: ~/.inputrc
+# Purpose: Enhanced completion and history behavior
+
+# === COMPLETION SETTINGS ===
+
+# Show all completions immediately if ambiguous
+set show-all-if-ambiguous on
+
+# Case-insensitive completion
+set completion-ignore-case on
+set completion-map-case on
+
+# Treat hyphens and underscores as equivalent
+set completion-prefix-display-length 3
+
+# Append slash to directory symlinks
+set mark-symlinked-directories on
+
+# Color completion matches
+set colored-stats on
+set colored-completion-prefix on
+set visible-stats on
+
+# Show completions in menu format
+set menu-complete-display-prefix on
+
+# Enable completion pagination (auto-detect terminal size)
+set page-completions on
+
+# Display completions in multiple columns
+set completion-display-width 80
+
+# === HISTORY SETTINGS ===
+
+# Use up/down arrows for history search (based on current line)
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Ctrl+Up/Down for full history navigation
+"\e[1;5A": previous-history
+"\e[1;5B": next-history
+
+# PgUp/PgDown for beginning/end of history
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+
+# === EDITING SHORTCUTS ===
+
+# Alt+Left/Right for word navigation
+"\e[1;3D": backward-word
+"\e[1;3C": forward-word
+
+# Ctrl+Left/Right for word navigation (alternative)
+"\e[1;5D": backward-word
+"\e[1;5C": forward-word
+
+# Alt+Backspace to delete word
+"\e\C-h": backward-kill-word
+"\e\d": kill-word
+
+# Ctrl+W to delete word backward
+"\C-w": unix-word-rubout
+
+# === TAB BEHAVIOR ===
+
+# Tab cycles through completions
+"\t": menu-complete
+
+# Shift+Tab cycles backward
+"\e[Z": menu-complete-backward
+
+# Alt+? shows all completions
+"\e?": possible-completions
+
+# === VI MODE (Optional - commented out by default) ===
+
+# Uncomment to enable Vi mode
+# set editing-mode vi
+# set keymap vi-command
+# set keymap vi-insert
+
+# === MISC SETTINGS ===
+
+# Enable 8-bit input (for special characters)
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# Disable bell
+set bell-style none
+
+# Show mode in prompt (useful for Vi mode)
+set show-mode-in-prompt on
+
+# Customize mode strings
+set vi-ins-mode-string "\1\e[6 q\2"
+set vi-cmd-mode-string "\1\e[2 q\2"
+
+# Match hidden files without leading dot
+set match-hidden-files on
+
+# Expand tilde to home directory
+set expand-tilde on
+
+# Incremental search shows partial matches
+set incremental-search-prompt-string "search: "
+
+# === BRACKETED PASTE MODE ===
+
+# Enable safe paste (prevents auto-execution)
+set enable-bracketed-paste on
+
+# === COMPLETION MATCHING ===
+
+# Smart case matching: lowercase matches both, uppercase only uppercase
+# Already covered by completion-map-case
+
+# Skip over hidden completions (dotfiles) unless explicitly typed
+set skip-completed-text on
+
+# === PROMPT SETTINGS ===
+
+# Show current keymap in prompt (vi/emacs)
+set show-mode-in-prompt on
+
+# Emacs mode prompt
+set emacs-mode-string "@"
+
+# === PERFORMANCE ===
+
+# Limit history search to reasonable depth
+set history-preserve-point on
+
+# === CONDITIONAL SETTINGS (Per-Application) ===
+
+# Special settings for specific applications
+$if Python
+    set editing-mode vi
+$endif
+
+$if Bash
+    # Bash-specific settings
+    Space: magic-space
+$endif
+
+# === KEY BINDINGS SUMMARY ===
+# Ctrl+R: Reverse search (works with FZF if configured)
+# Ctrl+T: FZF file search
+# Alt+C: FZF directory search
+# Tab: Complete/cycle forward
+# Shift+Tab: Cycle backward
+# Up/Down: History search based on prefix
+# Ctrl+Up/Down: Full history
+# Alt+Left/Right: Word navigation
+# Alt+Backspace: Delete word backward

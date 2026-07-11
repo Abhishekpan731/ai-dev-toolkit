@@ -1,0 +1,117 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "description": "Prevent accidental modification of sensitive credential files",
+        "matcher": "str-replace-editor|save-file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'if echo \"{{toolInput}}\" | grep -qE \"(.env|credentials|secrets|config.yaml|kubeconfig)\"; then echo \"⚠️  WARNING: Attempting to modify sensitive file. Ensure credentials are not hardcoded.\"; fi'",
+            "shell": "bash"
+          }
+        ]
+      },
+      {
+        "description": "Validate Go code before edits in pkg/ directory",
+        "matcher": "str-replace-editor",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'if echo \"{{toolInput}}\" | grep -q \"exascaler-csi-file-driver/pkg/.*\\.go\"; then echo \"✅ Editing Go code in pkg/ - Remember: Functions <50 lines, @author <AUTHOR_NAME>\"; fi'",
+            "shell": "bash"
+          }
+        ]
+      },
+      {
+        "description": "Log all file modifications for audit trail",
+        "matcher": "str-replace-editor|save-file|remove-files",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date '+%Y-%m-%d %H:%M:%S')] Tool: {{toolName}} | File: $(echo '{{toolInput}}' | grep -oE 'path[\":].*[,}]' | head -1)\" >> .ai-config/.tool-audit.log",
+            "shell": "bash"
+          }
+        ]
+      }
+    ],
+
+    "PostToolUse": [
+      {
+        "description": "Auto-format Go files after editing",
+        "matcher": "str-replace-editor",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'FILE=$(echo \"{{toolInput}}\" | jq -r \".path // empty\" 2>/dev/null); if [[ -n \"$FILE\" && \"$FILE\" == *.go ]]; then if command -v gofmt &>/dev/null; then gofmt -w \"$FILE\" 2>/dev/null && echo \"✅ Auto-formatted: $FILE\"; fi; fi'",
+            "shell": "bash"
+          }
+        ]
+      },
+      {
+        "description": "Remind to run tests after modifying Go test files",
+        "matcher": "str-replace-editor",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'if echo \"{{toolInput}}\" | grep -q \"_test\\.go\"; then echo \"💡 REMINDER: Run tests with: go test ./... -v -cover\"; fi'",
+            "shell": "bash"
+          }
+        ]
+      }
+    ],
+
+    "Stop": [
+      {
+        "description": "Session summary on exit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'if [ -f .ai-config/.tool-audit.log ]; then echo \"📊 Session Summary:\"; echo \"   Total tool calls: $(wc -l < .ai-config/.tool-audit.log)\"; echo \"   Modified files: $(grep -oE \"File:.*\" .ai-config/.tool-audit.log | sort -u | wc -l)\"; fi'",
+            "shell": "bash"
+          }
+        ]
+      }
+    ]
+  },
+  
+  "toolPermissions": [
+    {
+      "toolName": "launch-process",
+      "permission": {
+        "type": "allow",
+        "description": "Allow process launching for builds, tests, and debugging"
+      }
+    },
+    {
+      "toolName": "str-replace-editor",
+      "permission": {
+        "type": "allow",
+        "description": "Allow code editing with audit logging"
+      }
+    },
+    {
+      "toolName": "save-file",
+      "permission": {
+        "type": "allow",
+        "description": "Allow file creation with audit logging"
+      }
+    },
+    {
+      "toolName": "remove-files",
+      "permission": {
+        "type": "ask-user",
+        "description": "Prompt before deleting files for safety"
+      }
+    },
+    {
+      "toolName": "github-api",
+      "permission": {
+        "type": "allow",
+        "description": "Allow GitHub API calls for PR/issue management"
+      }
+    }
+  ],
+
+  "shell": "bash"
+}

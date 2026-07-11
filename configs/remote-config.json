@@ -1,0 +1,43 @@
+{
+  "$schema": "https://example.com/schemas/remote-config.json",
+  "description": "Remote server configuration template",
+  "remote": {
+    "enabled": true,
+    "server": {
+      "hostname": "<REMOTE_HOSTNAME>",
+      "ip": "<REMOTE_IP>",
+      "user": "<REMOTE_USER>",
+      "ssh_key_path": "~/.ssh/id_rsa",
+      "description": "Remote validation environment"
+    },
+    "paths": {
+      "remote_base": "/root/<REMOTE_USER>",
+      "remote_projects": "/root/<REMOTE_USER>/PROJECTS",
+      "remote_repo": "/root/<REMOTE_USER>/exascaler-csi-file-driver",
+      "local_base": "<LOCAL_PROJECT_PATH>",
+      "sync_exclude": [".git", "bin", "vendor", "node_modules", ".idea"]
+    },
+    "kubernetes": {
+      "type": "k3s",
+      "version": "v1.35.0",
+      "node": "<K8S_NODE_NAME>",
+      "kubeconfig": "/root/.kube/config",
+      "namespaces": {
+        "kmm": "kmm-operator-system",
+        "testing": "lustre-kmm"
+      }
+    },
+    "docker": {
+      "registry": "localhost:5000",
+      "network_registry": "<REMOTE_IP>:5000"
+    },
+    "lustre": {
+      "source_archive": "/root/<REMOTE_USER>/exa-client-ddn246.tar.gz",
+      "http_server": "http://<REMOTE_IP>:8080/lustre-client.tar.gz",
+      "mock_path": "/tmp/lustre-mock",
+      "mgs_server": "<MGS_SERVER_IP>@tcp",
+      "filesystem": "<FILESYSTEM_NAME>",
+      "mount_point": "/mnt/<FILESYSTEM_NAME>"
+    }
+  }
+}

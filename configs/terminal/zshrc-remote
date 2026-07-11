@@ -1,0 +1,173 @@
+# ~/.zshrc.remote - Minimal Remote Server Configuration
+# @author Abhishek Pandey
+# Purpose: Lightweight config for SSH sessions with key features
+
+# ============================================================================
+# MINIMAL REMOTE SETUP
+# ============================================================================
+
+# Environment variables
+export EDITOR="vim"
+export VISUAL="vim"
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTFILE=~/.zsh_history
+
+# History options
+setopt HIST_IGNORE_ALL_DUPS
+setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+
+# Enable colors
+autoload -Uz colors && colors
+
+# ============================================================================
+# COMPLETION (Lightweight)
+# ============================================================================
+
+autoload -Uz compinit && compinit
+
+# Case-insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# ============================================================================
+# MINIMAL PROMPT (Fallback if Starship not available)
+# ============================================================================
+
+# Git branch function
+git_branch() {
+    git branch 2>/dev/null | grep '^*' | colrm 1 2
+}
+
+# Simple prompt with Git support
+setopt PROMPT_SUBST
+PROMPT='%B%F{green}%n@%m%f%b:%B%F{blue}%~%f%b%F{yellow}$(git_branch)%f %# '
+
+# ============================================================================
+# STARSHIP (If available on remote)
+# ============================================================================
+
+if command -v starship &> /dev/null; then
+    eval "$(starship init zsh)"
+fi
+
+# ============================================================================
+# BASIC ALIASES
+# ============================================================================
+
+# Safe defaults
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# Enhanced ls (fallback to standard ls if eza not available)
+if command -v eza &> /dev/null; then
+    alias ls='eza --icons --group-directories-first'
+    alias ll='eza -lah --icons --group-directories-first'
+else
+    alias ls='ls --color=auto'
+    alias ll='ls -lah --color=auto'
+fi
+
+# Git shortcuts
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gl='git log --oneline --graph'
+
+# Kubernetes shortcuts
+alias k='kubectl'
+alias kgp='kubectl get pods'
+alias kgs='kubectl get svc'
+
+# ============================================================================
+# AUTO-SUGGESTIONS (If available)
+# ============================================================================
+
+# Try to load zsh-autosuggestions from common locations
+for suggestion_file in \
+    /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+    /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+    ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh; do
+    
+    if [[ -f $suggestion_file ]]; then
+        source $suggestion_file
+        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+        break
+    fi
+done
+
+# ============================================================================
+# SYNTAX HIGHLIGHTING (If available)
+# ============================================================================
+
+# Try to load zsh-syntax-highlighting from common locations
+for highlight_file in \
+    /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+    /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+    ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh; do
+    
+    if [[ -f $highlight_file ]]; then
+        source $highlight_file
+        break
+    fi
+done
+
+# ============================================================================
+# TMUX AUTO-ATTACH
+# ============================================================================
+
+# Auto-attach to existing tmux session or create new one
+if command -v tmux &> /dev/null; then
+    # If not in tmux and not an SSH connection
+    if [[ -z "$TMUX" ]] && [[ -z "$SSH_TTY" ]]; then
+        # Try to attach to existing session, or create new
+        tmux attach-session -t default || tmux new-session -s default
+    fi
+fi
+
+# ============================================================================
+# KUBECTL/OC COMPLETION
+# ============================================================================
+
+if command -v kubectl &> /dev/null; then
+    source <(kubectl completion zsh)
+fi
+
+if command -v oc &> /dev/null; then
+    source <(oc completion zsh)
+fi
+
+# ============================================================================
+# CUSTOM FUNCTIONS
+# ============================================================================
+
+# Quick directory navigation
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
+# Extract archives
+extract() {
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xjf $1     ;;
+            *.tar.gz)    tar xzf $1     ;;
+            *.bz2)       bunzip2 $1     ;;
+            *.rar)       unrar e $1     ;;
+            *.gz)        gunzip $1      ;;
+            *.tar)       tar xf $1      ;;
+            *.tbz2)      tar xjf $1     ;;
+            *.tgz)       tar xzf $1     ;;
+            *.zip)       unzip $1       ;;
+            *.Z)         uncompress $1  ;;
+            *.7z)        7z x $1        ;;
+            *)           echo "'$1' cannot be extracted" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
